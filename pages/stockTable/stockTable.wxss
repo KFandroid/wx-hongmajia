@@ -1,0 +1,126 @@
+/* pages/stockTable/stockTable.wxss */
+@import "../../utils/css/column.wxss";
+
+.secondary-title {
+  font-size: 34rpx;
+  font-weight: bold;
+  position: sticky;
+  top:0;
+  background-color: #fff;
+  z-index: 99;
+  line-height: 68rpx;
+  height:68rpx;
+  padding:0 17rpx;
+  border-bottom: 2rpx solid  gray;
+}
+
+.secondary-title .title {
+  display: inline-block;
+  font-size: 30rpx;
+  font-weight: normal;
+}
+.secondary-title .btn {
+  float: right;
+  max-width: 40px;
+  height:68rpx;
+}
+.detail-title {
+  position: sticky;
+  top:70rpx;
+  background-color: #fff;
+  z-index: 99;
+  font-size: 28rpx;
+  padding: 0 17rpx;
+  line-height: 56rpx;
+  height:56rpx;
+  border-bottom: 2rpx solid gray;
+}
+
+.flex-box{
+  background:#fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+}
+.flex-cell{
+  line-height: 8vh;
+  height:8vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 28rpx;
+  border-bottom: 2rpx solid gray;
+}
+.flex-row{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-2-row{
+  flex-direction: column;
+}
+
+.flex-left{
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.flex-right{
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.flex-2-row text {
+  height: 38rpx;
+  line-height: 38rpx;
+}
+
+
+/* page {
+  background-color: #ecc0a8;
+} */
+.thead{
+  line-height: 6vh;
+  height:6vh;
+  position: sticky;
+  top:126rpx;
+  background-color: #fff;
+  z-index: 99;
+}
+.thead .flex-cell{
+  line-height: 6vh;
+  height:6vh;
+}
+
+.order{
+  position: relative;
+}
+
+.order::after {
+  content: "▾";
+  position: absolute;
+  right: -30rpx;
+  font-size: 50rpx;
+  transition: 0.2s all;
+}
+
+.reverse{
+  position: relative;
+}
+
+.reverse::after {
+  content: "▾";
+  position: absolute;
+  right: -30rpx;
+  font-size: 50rpx;
+  transform: rotate(-180deg);
+}
+
+.last::after {
+    right:50rpx;
+}

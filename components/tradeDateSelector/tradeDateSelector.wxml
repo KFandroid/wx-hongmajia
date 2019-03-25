@@ -1,0 +1,9 @@
+<!-- components/tradeDateSelector/tradeDateSelector.wxml -->
+<view class="btn3" wx:if="{{!selectNo}}">
+    <picker mode="multiSelector" value="{{multiIndex}}" range="{{multiArray}}" bindchange="bindchange" bindcancel="bindcancel" bindcolumnchange="bindMultiPickerColumnChange">
+        <view class="datePicker">
+            {{multiArrayShow[0][multiIndexShow[0]]}}-{{multiArrayShow[1][multiIndexShow[1]]}}-{{multiArrayShow[2][multiIndexShow[2]]}}
+        </view>
+    </picker>
+    <image src="../../utils/images/date.png" mode="aspectFit"></image>
+</view>

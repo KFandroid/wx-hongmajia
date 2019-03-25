@@ -1,0 +1,42 @@
+<view>
+  <view class="datePickerContainer" bindtap='showDatePicker'>
+    <text>{{startDate}}</text>
+    <text>至</text>
+    <text>{{endDate}}</text>
+    <view class="btn" bindtap="viewTap">
+      <image src="../../utils/images/date.png" style='max-width: 48rpx; height: 56rpx;' mode="aspectFit"></image>
+    </view>
+  </view>
+  <view class="date-section" wx:if="{{show}}" style="bottom: {{bottomVal}}px;">
+  <view class="btn-container">
+    <text class="cancel" bindtap="cancel">取消</text>
+    <text class="confirm" bindtap="confirm">确定</text>
+  </view>
+  <picker-view indicator-style="height: 50px;"  style="width: 100%; height: 300px;" value="{{value}}" bindchange="bindChange">
+    <picker-view-column>
+      <view wx:for="{{years}}" style="line-height: 50px">{{item}}年</view>
+    </picker-view-column>
+    <picker-view-column>
+      <view wx:for="{{months}}" style="line-height: 50px">{{item}}月</view>
+    </picker-view-column>
+    <picker-view-column>
+      <view wx:for="{{startDays}}" style="line-height: 50px">{{item}}日</view>
+    </picker-view-column>
+    <picker-view-column>
+      <text style="line-height: 50px">至</text>
+    </picker-view-column>
+    <picker-view-column>
+      <view wx:for="{{years}}" style="line-height: 50px">{{item}}年</view>
+    </picker-view-column>
+    <picker-view-column>
+      <view wx:for="{{months}}" style="line-height: 50px">{{item}}月</view>
+    </picker-view-column>
+    <picker-view-column>
+      <view wx:for="{{endDays}}" style="line-height: 50px">{{item}}日</view>
+    </picker-view-column>
+  </picker-view>
+  </view>
+  <view class="modal" hover-stop-propagation="true" style="top:{{modalTopVal}}px" wx:if="{{show}}" catchtouchmove="myCatchTouch" bindtap='cancel'>
+  </view>
+  
+</view>

@@ -1,0 +1,162 @@
+<!-- components/lhbDetail/lhbDetail.wxml -->
+<wxs module="m1">
+  var radioIsSelected = function(isSelected) {
+    if (isSelected) {
+      return '../../utils/images/radioCheck.png'
+    } else {
+      return '../../utils/images/radioUncheck.png'
+    }
+  }
+  module.exports.radioIsSelected = radioIsSelected;
+</wxs>
+<view class="container">
+  <view class="one" wx:if="{{!showTwo}}">
+    <view class="title">
+      <view class="tab {{selected==1?'selected':''}}" data-index="1" bindtap="tabChange">股票</view>
+      /
+      <view class="tab {{selected==2?'selected':''}}" data-index="2" bindtap="tabChange">营业部</view>
+      <!-- <view class="btn3" wx:if="{{!selectNo}}">
+        <picker mode="date" value="{{date}}" bindchange="bindDateChange">
+          <view class="datePicker">{{date}}</view>
+        </picker>
+        <image src="../../utils/images/date.png" mode="aspectFit"></image>
+      </view> -->
+      <tradeDateSelector bind:bindGetDate="bindGetDate"></tradeDateSelector>
+      <view class="subTitle" wx:if="{{selected==1}}">
+        <view class="picker" bindtap="openDialog">
+          <view class="picker_content">{{selector[selectIndex].name}}</view>
+        </view>
+        <text class="subTitle_text">【{{date}}】\n上榜股票列表</text>
+        <view class="tr bdt">
+          <view class="td td4">序</view>
+          <view class="td td12">
+            <text>名称</text>
+            <text>代码</text>
+          </view>
+          <view class="td td13">
+            <text>价格</text>
+            <text>涨幅</text>
+          </view>
+          <view class="td td14">
+            <text>买量</text>
+            <text>卖量</text>
+          </view>
+          <view class="td td15">
+            <text>总量</text>
+            <text>总占比</text>
+          </view>
+        </view>
+      </view>
+      <view class="subTitle" wx:if="{{selected==2}}">
+        <text class="subTitle_text">【{{date}}】\n上榜营业部列表</text>
+        <view class="tr bdt">
+          <view class="td td4">序</view>
+          <view class="td td5" style="line-height:60rpx;">营业部名称</view>
+          <view class="td td6">
+            <text>买量</text>
+            <text>卖量</text>
+          </view>
+          <view class="td td7">
+            <text>差值</text>
+            <text>差比</text>
+          </view>
+        </view>
+        <view class="picker" bindtap="openDialog">
+          <view class="picker_content">{{selector[selectIndex].name}}</view>
+        </view>
+      </view>
+    </view>
+    <view class="table">
+      <view class="tr" wx:if="{{selected==1}}" wx:for="{{showData}}" wx:key="{{index}}">
+        <view class="td td4">{{index+1}}</view>
+        <view class="td td12">
+          <text>{{item.stockName}}</text>
+          <text>{{item.stockCode}}</text>
+        </view>
+        <view class="td td13">
+          <text>{{item.price}}</text>
+          <text>{{item.zf}}</text>
+        </view>
+        <view class="td td14">
+          <text>{{item.buy}}</text>
+          <text>{{item.sell}}</text>
+        </view>
+        <view class="td td15">
+          <text>{{item.zl}}</text>
+          <text>{{item.zzb}}</text>
+        </view>
+      </view>
+      <view class="tr" wx:for="{{showYYBData}}" wx:key="{{index}}" wx:if="{{selected==2}}" data-id="{{item.id}}" data-name="{{item.name}}" bindtap='openTwo'>
+        <view class="td td4">{{index+1}}</view>
+        <view class="td td5 {{item.hyd>1?'red':'grey'}}">{{item.name}}</view>
+        <view class="td td6">
+          <text>{{item.buy}}</text>
+          <text>{{item.sell}}</text>
+        </view>
+        <view class="td td7">
+          <text>{{item.cz}}</text>
+          <text>{{item.cb}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="two" wx:if="{{showTwo}}">
+    <view class="title">
+      <text style="width:100%;display:block;line-height:30rpx;margin-top:6rpx;">【{{date}}】</text>
+      <text style="width:100%;display:block;line-height:30rpx;margin-bottom:6rpx;padding-right:50rpx;box-sizing:border-box;margin-top:-20rpx;">
+        {{title}}
+      </text>
+      <view class="close" bindtap='closeTwo'>×</view>
+      <view class="tr bdt">
+        <view class="td td4">序</view>
+        <view class="td td12">
+          <text>名称</text>
+          <text>代码</text>
+        </view>
+        <view class="td td13">
+          <text>价格</text>
+          <text>涨幅</text>
+        </view>
+        <view class="td td14">
+          <text>买量</text>
+          <text>卖量</text>
+        </view>
+        <view class="td td15">
+          <text>总量</text>
+          <text>总占比</text>
+        </view>
+      </view>
+    </view>
+    <view class="table">
+      <view class="tr" wx:for="{{showDetailData}}" wx:key="{{index}}">
+        <view class="td td4">{{index+1}}</view>
+        <view class="td td12">
+          <text>{{item.stockCode}}</text>
+          <text>{{item.stockName}}</text>
+        </view>
+        <view class="td td13">
+          <text>{{item.cjj}}</text>
+          <text>{{item.zf}}%</text>
+        </view>
+        <view class="td td14">
+          <text>{{item.buy}}</text>
+          <text>{{item.sell}}</text>
+        </view>
+        <view class="td td15">
+          <text>{{item.zl}}</text>
+          <text>{{item.zzb}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<popup id='popup' title='设置' btn_no='取消 ' btn_ok='确定 ' bind:no="dialogNo" bind:ok="dialogYes">
+  <cover-view slot="content">
+    <cover-view class="row">
+      <cover-view wx:for="{{selector}}" wx:key="{{index}}" class="formContent" data-sign="openydjx" data-index="{{index}}" bindtap="settingChange">
+        <cover-image class="radio_img" src="{{m1.radioIsSelected(selectIndexTemp==index)}}"></cover-image>
+        <cover-view class="radio_title">{{item.name}}</cover-view>
+      </cover-view>
+    </cover-view>
+  </cover-view>
+</popup>

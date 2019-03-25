@@ -1,0 +1,18 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/search/search",
+    "pages/stockTable/stockTable",
+    "pages/stockExceptionItem/stockExceptionItem",
+    "pages/setting/setting",
+    "pages/addCustomClass/addCustomClass",
+    "pages/indicatorSetting/indicatorSetting"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#bababa",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "black"
+  }
+}

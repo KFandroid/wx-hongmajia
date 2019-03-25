@@ -1,0 +1,2 @@
+<!--components/volumeLines/volumeLines.wxml-->
+<canvas wx:if="{{kLinesData}}" bindtouchstart="longTapMove" style="width: {{width}}px; height: {{height}}px;" canvas-id="myCanvas" id="myCanvas"></canvas>

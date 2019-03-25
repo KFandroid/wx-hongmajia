@@ -1,0 +1,2 @@
+<!--components/bottomChart/bottomChart.wxml-->
+<canvas style="width: 100%; height: 100%;" canvas-id="myCanvas" id="myCanvas"></canvas>

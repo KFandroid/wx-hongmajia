@@ -1,0 +1,64 @@
+<!-- components/optionalStock/optionalStock.wxml -->
+<view class="content">
+    <view class="secondary-title">
+        <text class="title">自选股列表</text>
+        <!-- <view class="menu-btn" bindtap="viewTap">
+      <image src="../../utils/images/menu.png" style='max-width: 50rpx; height: 82rpx;' mode="aspectFit"></image>
+    </view> -->
+    </view>
+    <view class="form">
+        <picker class="picker" bindchange="bindPickerChange" value="{{index}}" range="{{selector}}" range-key="name">
+            <view class="picker_content">{{selector[index].name}}</view>
+        </picker>
+        <view class="btn" bindtap="toEditCustom">编辑板块</view>
+    </view>
+    <view class="flex-box flex-column">
+        <view class="flex-row thead">
+            <text class="flex-cell flex-row col-16-1">序</text>
+            <view class="flex-cell flex-row col-16-4 flex-2-row">
+                <text>名称</text>
+                <text>代码</text>
+            </view>
+            <view class="flex-cell flex-row col-16-4 flex-2-row">
+                <text>最新价</text>
+                <text>涨幅</text>
+            </view>
+            <view class="flex-cell flex-row col-16-4 flex-2-row">
+                <text>成交量</text>
+                <text>成交额</text>
+            </view>
+            <view class="flex-cell flex-row col-16-3 flex-2-row">
+                <text>昨收</text>
+                <text>今开</text>
+            </view>
+        </view>
+    </view>
+    <view style='font-size:24rpx;text-align:center;' hidden='{{allData.length !== 0}}'>
+        暂无自选股内容
+    </view>
+    <scroll-view class="scrollView" hidden='{{allData.length === 0}}' scroll-y="true" style='height: {{scrollHeight}}px;'>
+        <view class="flex-box flex-column">
+            <block wx:for="{{allData}}" wx:key="{{item.name}}" wx:for-item="item">
+                <view class="flex-row" data-item="{{item}}" bindlongpress="removeThis" bindtap="updateStock">
+                    <text class="flex-cell flex-row col-16-1">{{index + 1}}</text>
+                    <view class="flex-cell flex-row col-16-4 flex-2-row">
+                        <text>{{item.stockName}}</text>
+                        <text>{{item.stockCode}}</text>
+                    </view>
+                    <view class="flex-cell flex-row col-16-4 flex-2-row">
+                        <text>{{item.cjj}}</text>
+                        <text>{{item.zf}}%</text>
+                    </view>
+                    <view class="flex-cell flex-row col-16-4 flex-2-row">
+                        <text>{{item.cjl}}</text>
+                        <text>{{item.cje}}</text>
+                    </view>
+                    <view class="flex-cell flex-row col-16-3 flex-2-row">
+                        <text>{{item.zsj}}</text>
+                        <text>{{item.kpj}}</text>
+                    </view>
+                </view>
+            </block>
+        </view>
+    </scroll-view>
+</view>

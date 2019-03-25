@@ -1,0 +1,285 @@
+/* components/indexSearch/indexSearch.wxss */
+
+.container {
+  position: relative;
+  height: 100%;
+}
+
+.news {
+  font-size: 24rpx;
+  padding: 14rpx 5rpx;
+  box-sizing: border-box;
+  border-bottom: 1rpx solid #999;
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  z-index: 1;
+}
+
+.main {
+  font-size: 24rpx;
+  position: relative;
+}
+
+.main .title {
+  width: 100%;
+  top: 138rpx;
+  left: 0;
+  background-color: #fff;
+  z-index: 101;
+}
+
+.main .title, .main .row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.main .title>view, .main .row>view, .main .row>.child>view {
+  padding: 14rpx 0 14rpx 20rpx;
+  border-right: 1rpx solid #999;
+  border-bottom: 1rpx solid #999;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.main .row .child .name {
+  padding-left: 100rpx;
+}
+
+.main .row>.child, .main .row .child3 {
+  width: 100%;
+  padding: 0;
+  border: 0;
+  display: flex;
+}
+
+.main .name {
+  width: 50%;
+}
+
+.main .count {
+  width: 50%;
+}
+
+.main .title .intro, .main .row .intro {
+  padding-left: 0;
+  width: 20%;
+  border-right: 0;
+  text-align: center;
+}
+
+.main .row .child2 .childLeft {
+  padding-left: 30rpx;
+  width: 50%;
+  border-right: 0;
+}
+
+.main .row .child2 .childRight {
+  padding-left: 20rpx;
+  width: 50%;
+  border-right: 0;
+}
+
+.main .row .child1 {
+  flex-wrap: wrap;
+}
+
+.main .row .child3 .childLeft {
+  padding-left: 30rpx;
+  width: 50%;
+  border-right: 0;
+}
+
+.main .row .child3 .childRight {
+  padding-left: 20rpx;
+  width: 50%;
+  border-right: 0;
+}
+
+.main .row .intro image {
+  width: 34rpx;
+  height: 34rpx;
+}
+
+.row>.child1>.name {
+  color: #169bd5;
+}
+
+.row>.name, .row>.count, .child1>.count {
+  position: relative;
+}
+
+.row>.name::after, .row>.count::after, .child1>.count::after {
+  content: "▾";
+  height: 100%;
+  position: absolute;
+  right: 10rpx;
+  font-size: 50rpx;
+  top: 0;
+  transition: 0.2s all;
+}
+
+.row>.name.selected::after, .row>.count.selected::after,
+.child1>.count.selected::after {
+  content: "▾";
+  transform: rotate(-180deg);
+}
+
+.btn3 {
+  padding-right: 40rpx;
+  position: relative;
+  float: right;
+}
+
+.btn3 image {
+  width: 30rpx;
+  height: 30rpx;
+  position: absolute;
+  right: 4rpx;
+  top: 0rpx;
+}
+
+.count {
+  border-right: 0 !important;
+}
+
+.stockTable {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.subTitle {
+  font-size: 24rpx;
+  line-height: 55rpx;
+  /* border-bottom: 1rpx solid gray; */
+  width: 100%;
+  background-color: #fff;
+  box-sizing: border-box;
+  height: 127rpx;
+}
+
+.close {
+  position: absolute;
+  width: 50rpx;
+  height: 55rpx;
+  text-align: center;
+  line-height: 55rpx;
+  color: gray;
+  font-size: 36rpx;
+  right: 0;
+  top: 0;
+}
+
+.table {
+  width: 100%;
+  clear: both;
+  box-sizing: border-box;
+  flex: 1;
+  overflow: auto;
+}
+
+.tTitle {
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  border-top: 1rpx solid gray;
+}
+
+.tr {
+  width: 100%;
+  clear: both;
+  height: 55rpx;
+}
+
+.td {
+  float: left;
+  font-size: 24rpx;
+  text-align: center;
+  height: 72rpx;
+  line-height: 60rpx;
+  border-bottom: 1rpx solid gray;
+  box-sizing: border-box;
+  padding: 6rpx 0;
+}
+
+.td.no {
+  width: 10%;
+}
+
+.td.name, .td.price {
+  width: 20%;
+  line-height: 30rpx;
+}
+
+.td.time {
+  width: 20%;
+}
+
+.td.keyValue {
+  width: 30%;
+}
+
+.pagination-container {
+  display: flex;
+  height: 60rpx;
+  font-size: 24rpx;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  background-color: #fff;
+  border-top: 1rpx solid gray;
+}
+
+.pageBtn {
+  color: rgb(90, 90, 230);
+}
+
+.order {
+  position: relative;
+}
+
+.order::after {
+  content: "▾";
+  position: absolute;
+  right: -2rpx;
+  font-size: 50rpx;
+  transition: 0.2s all;
+}
+
+.order2 {
+  position: relative;
+}
+
+.order2::after {
+  content: "▾";
+  position: absolute;
+  right: -24rpx;
+  font-size: 50rpx;
+  transition: 0.2s all;
+}
+
+.reverse {
+  position: relative;
+}
+
+.reverse::after {
+  content: "▾";
+  position: absolute;
+  right: -2rpx;
+  font-size: 50rpx;
+  transform: rotate(-180deg);
+}
+
+.reverse2 {
+  position: relative;
+}
+
+.reverse2::after {
+  content: "▾";
+  position: absolute;
+  right: -24rpx;
+  font-size: 50rpx;
+  transform: rotate(-180deg);
+}

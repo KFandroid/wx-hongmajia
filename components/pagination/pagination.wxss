@@ -1,0 +1,16 @@
+/* components/pagination/pagination.wxss */
+.pagination-container {
+  display: flex;
+  height: 80rpx;
+  font-size: 32rpx;
+  justify-content: space-around;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.pageBtn{
+  color:rgb(90, 90, 230);
+}

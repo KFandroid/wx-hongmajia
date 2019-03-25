@@ -1,0 +1,241 @@
+/* components/bestSelect/bestSelect.wxss */
+
+.container {
+  height: 100%;
+}
+
+.title {
+  font-size: 24rpx;
+  line-height: 55rpx;
+  border-bottom: 1rpx solid gray;
+  position: relative;
+}
+
+.btn3 {
+  padding-left: 20rpx;
+  padding-right: 40rpx;
+  position: relative;
+  float: right;
+}
+
+.closeTable {
+  position: absolute;
+  width: 80rpx;
+  height: 55rpx;
+  text-align: center;
+  right: 0rpx;
+  top: 0rpx;
+  font-size: 22rpx;
+  border-left: 1rpx solid gray;
+}
+
+.btn3 image {
+  width: 30rpx;
+  height: 30rpx;
+  position: absolute;
+  right: 4rpx;
+  top: 12rpx;
+}
+
+.datePicker {
+  font-size: 24rpx;
+}
+
+.item {
+  width: 100%;
+  font-size: 24rpx;
+  text-align: left;
+  line-height: 60rpx;
+  border-bottom: 1rpx solid gray;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.itemText {
+  padding-left: 20rpx;
+}
+
+.item::after {
+  position: absolute;
+  content: '▾';
+  height: 60rpx;
+  right: 10rpx;
+  top: 0rpx;
+  font-size: 30rpx;
+}
+
+.item.selected::after {
+  position: absolute;
+  content: '▾';
+  height: 60rpx;
+  right: 10rpx;
+  top: 0rpx;
+  transform: rotateX(-180deg);
+  font-size: 30rpx;
+}
+
+.subItem {
+  border-top: 1rpx solid gray;
+  display: none;
+  position: relative;
+}
+
+.subItem::after {
+  position: absolute;
+  content: '>';
+  height: 60rpx;
+  right: 10rpx;
+  top: 0rpx;
+  font-size: 30rpx;
+  font-family: "宋体";
+}
+
+.selected .subItem {
+  display: block;
+}
+
+.subItemText {
+  padding-left: 40rpx;
+}
+
+.table {
+  width: 100%;
+  clear: both;
+  box-sizing: border-box;
+}
+
+.tr {
+  width: 100%;
+  clear: both;
+  height: 55rpx;
+}
+
+.td {
+  width: 25%;
+  float: left;
+  font-size: 24rpx;
+  text-align: center;
+  height: 55rpx;
+  line-height: 55rpx;
+  border-right: 1rpx solid gray;
+  border-bottom: 1rpx solid gray;
+  box-sizing: border-box;
+}
+
+.td2 {
+  width: 50%;
+}
+
+.td.blue {
+  color: #169bd5;
+}
+
+.bdn {
+  border-right: 0;
+}
+
+.stockTable {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.subTitle {
+  font-size: 24rpx;
+  /* line-height: 55rpx; */
+  /* border-bottom: 1rpx solid gray; */
+  width: 100%;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+
+.close {
+  position: absolute;
+  width: 50rpx;
+  height: 55rpx;
+  text-align: center;
+  line-height: 55rpx;
+  color: gray;
+  font-size: 36rpx;
+  right: 0;
+  top: 0;
+}
+
+.table2 {
+  width: 100%;
+  clear: both;
+  box-sizing: border-box;
+  flex: 1;
+}
+
+.tTitle {
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  border-top: 1rpx solid gray;
+}
+
+.tr2 {
+  width: 100%;
+  clear: both;
+  height: 55rpx;
+}
+
+.td2 {
+  float: left;
+  font-size: 24rpx;
+  text-align: center;
+  height: 72rpx;
+  line-height: 60rpx;
+  border-bottom: 1rpx solid gray;
+  box-sizing: border-box;
+  padding: 6rpx 0;
+}
+
+.td2.no {
+  width: 10%;
+}
+
+.td2.name, .td2.price {
+  width: 30%;
+  line-height: 30rpx;
+}
+
+.td2.time {
+  width: 30%;
+}
+
+.pagination-container {
+  display: flex;
+  height: 60rpx;
+  font-size: 24rpx;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  border-top: 1rpx solid gray;
+}
+
+.pageBtn {
+  color: rgb(90, 90, 230);
+}
+
+.close {
+  position: absolute;
+  width: 50rpx;
+  height: 55rpx;
+  text-align: center;
+  line-height: 55rpx;
+  color: gray;
+  font-size: 36rpx;
+  right: 0;
+  top: 0;
+}
+
+.subTitle_text {
+  padding: 6rpx;
+  line-height: 30rpx;
+  box-sizing: border-box;
+  width: 100%;
+  float: left;
+}

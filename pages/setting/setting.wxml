@@ -1,0 +1,150 @@
+<!-- pages/setting/setting.wxml -->
+<view class="content">
+    <view class="zxg" bindtap="showPopup">添加至自选股</view>
+    <view wx:if="{{type==1}}">
+        <view class="tab_header" data-index="1" bindtap='tabSpread'>1.集合竞价状态</view>
+        <view class="tab_body {{tabSelect==1?'tab_body_show':''}}">
+            <radio-group class="radio-group" bindchange="radioChange">
+                <view class="row" wx:for="{{items.jhjjItems}}">
+                    <label class="radio">
+                        <radio value="{{item.value}}" checked="{{item.checked}}" />
+                        {{item.name}}
+                    </label>
+                </view>
+            </radio-group>
+        </view>
+        <!-- <view class="tab_header" data-index="2" bindtap='tabSpread'>2.显示十字光标</view>
+        <view class="tab_body {{tabSelect==2?'tab_body_show':''}}">
+            <radio-group class="radio-group" bindchange="radioChange">
+                <view class="row" wx:for="{{items.showFsCrossfair}}">
+                    <label class="radio">
+                        <radio value="{{item.value}}" checked="{{item.checked}}" />
+                        {{item.name}}
+                    </label>
+                </view>
+            </radio-group>
+        </view> -->
+        <view class="tab_header " data-index="3" bindtap='tabSpread'>2.分时均线显示状态</view>
+        <view class="tab_body {{tabSelect==3? 'tab_body_show': ''}}">
+            <radio-group class="radio-group" bindchange="radioChange">
+                <view class="row" wx:for="{{items.fsjxItems}}" wx:key="{{index}}">
+                    >
+                    <label class="radio">
+                        <radio value="{{item.value}}" checked="{{item.checked}}" />
+                        {{item.name}}
+                    </label>
+                </view>
+            </radio-group>
+        </view>
+        <view class="tab_header " data-index="4" bindtap='tabSpread'>3.分时均量线显示状态</view>
+        <view class="tab_body {{tabSelect==4?'tab_body_show':''}}">
+            <radio-group class="radio-group" bindchange="radioChange">
+                <view class="row" wx:for="{{items.fsjlxItems}}" wx:key="{{index}}">
+                    <label class="radio">
+                        <radio value="{{item.value}}" checked="{{item.checked}}" />
+                        {{item.name}}
+                    </label>
+                </view>
+            </radio-group>
+        </view>
+    </view>
+    <view wx:if="{{type==2}}">
+        <view class="tab_header" data-index="1" bindtap='tabSpread'>1.除复权状态</view>
+        <view class="tab_body {{tabSelect==1?'tab_body_show':''}}">
+            <radio-group class="radio-group" bindchange="radioChange">
+                <view class="row" wx:for="{{items.cfqItems}}" wx:key="{{index}}">
+                    <label class="radio">
+                        <radio value="{{item.value}}" checked="{{item.checked}}" />
+                        {{item.name}}
+                    </label>
+                </view>
+            </radio-group>
+        </view>
+        <view class="tab_header" data-index="2" bindtap='tabSpread'>2.K线均线状态</view>
+        <view class="tab_body {{tabSelect==2?'tab_body_show':''}}">
+            <radio-group class="radio-group" bindchange="radioChange">
+                <view class="row" wx:for="{{items.kjxItems}}">
+                    <label class="radio">
+                        <radio value="{{item.value}}" checked="{{item.checked}}" />
+                        {{item.name}}
+                    </label>
+                </view>
+            </radio-group>
+        </view>
+        <view class="tab_header " data-index="3" bindtap='tabSpread'>3.成交量均线状态</view>
+        <view class="tab_body {{tabSelect==3? 'tab_body_show': ''}}">
+            <radio-group class="radio-group" bindchange="radioChange">
+                <view class="row" wx:for="{{items.ljxItems}}">
+                    <label class="radio">
+                        <radio value="{{item.value}}" checked="{{item.checked}}" />
+                        {{item.name}}
+                    </label>
+                </view>
+            </radio-group>
+        </view>
+        <view class="tab_header " data-index="4" bindtap='tabSpread'>4.K线窗移动均线参数设置</view>
+        <view class="tab_body {{tabSelect==4?'tab_body_show':''}}">
+            <checkbox-group bindchange="ydCheckChange">
+                <view class="row" wx:for="{{items.kydjxPeriod}}">
+                    <label class="checkbox">
+                        <checkbox value="{{index+','+item.name}}" checked="{{item.checked}}" />
+                    </label>
+                    <view style="transform: translateY(-26rpx); display:inline-block; margin-right: 20rpx;">
+                        周期{{index + 1}}
+                    </view>
+                    <input data-flag="kydjxPeriod" data-check="{{item.check}}" data-index="{{index}}" bindinput="bindinput" maxlength="2" value="{{item.name}}" />
+                </view>
+            </checkbox-group>
+        </view>
+        <view class="tab_header" data-index="5" bindtap='tabSpread'>5.K线窗成本均线参数设置</view>
+        <view class="tab_body {{tabSelect==5? 'tab_body_show':''}}">
+            <checkbox-group bindchange="cbCheckChange">
+                <view class="row" wx:for="{{items.kcbjxPeriod}}">
+                    <label class="checkbox">
+                        <checkbox value="{{index+','+item.name}}" checked="{{item.checked}}" />
+                    </label>
+                    <view style="transform: translateY(-26rpx); display:inline-block;">
+                        周期{{index}}
+                    </view>
+                    <input data-flag="kcbjxPeriod" data-check="{{item.check}}" data-index="{{index}}" bindinput="bindinput" maxlength="2" value="{{item.name}}" />
+                </view>
+            </checkbox-group>
+        </view>
+        <view class="tab_header" data-index="6" bindtap='tabSpread'>6.成交量窗量均线参数设置</view>
+        <view class="tab_body {{tabSelect==6? 'tab_body_show':''}}">
+            <checkbox-group bindchange="cjlCheckChange">
+                <view class="row" wx:for="{{items.kcjljxPeriod}}">
+                    <label class="checkbox">
+                        <checkbox value="{{index+','+item.name}}" checked="{{item.checked}}" />
+                    </label>
+                    <view style="transform: translateY(-26rpx); display:inline-block;">
+                        周期{{index}}
+                    </view>
+                    <input data-flag="kcjljxPeriod" data-check="{{item.check}}" data-index="{{index}}" bindinput="bindinput" maxlength="2" value="{{item.name}}" />
+                </view>
+            </checkbox-group>
+        </view>
+        <!-- <view class="tab_header" data-index="7" bindtap='tabSpread'>7.显示十字光标</view>
+        <view class="tab_body {{tabSelect==7?'tab_body_show':''}}">
+            <radio-group class="radio-group" bindchange="radioChange">
+                <view class="row" wx:for="{{items.showKCrossfair}}">
+                    <label class="radio">
+                        <radio value="{{item.value}}" checked="{{item.checked}}" />
+                        {{item.name}}
+                    </label>
+                </view>
+            </radio-group>
+        </view> -->
+    </view>
+    <view class="btn">
+        <view class="btn-no" bindtap='no'>取消</view>
+        <view class="btn-ok" bindtap='ok'>确定</view>
+    </view>
+</view>
+<popup id='popup' title='添加自选股' btn_no='取消' btn_ok='确定' bind:no="closePop" bind:ok="addCustom">
+    <view slot="content">
+        <picker class="picker" bindchange="bindPickerChange" value="{{selectedId}}" range="{{selector}}" range-key="name">
+            <view class="picker_content">{{selector[selectedId].name}}</view>
+        </picker>
+    </view>
+</popup>

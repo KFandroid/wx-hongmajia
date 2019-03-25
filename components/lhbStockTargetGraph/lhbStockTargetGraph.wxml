@@ -1,0 +1,71 @@
+<!--components/targetGraph/targetGraph.wxml-->
+<wxs module="m1">
+     var isSelected = function(isSelected) {
+    
+    if (isSelected) {
+      return '../../utils/images/checked.png'
+    } else {
+      return '../../utils/images/unchecked.png'
+    }
+  }
+  var abs = function(num) {
+      if(num === '' || num === undefined) {
+          return ''
+      }
+      
+    return Math.abs(num)
+  }
+  var isHide = function(data) {
+      if(data.length === 0)
+      return 'hide'
+  }
+  module.exports.abs = abs
+  module.exports.isSelected = isSelected
+  module.exports.isHide = isHide
+</wxs>
+<view class="cover">
+<view class="main-title">
+<!-- <view class="btn" bindtap="openSetting">{{selectType}}
+    <text style="font-size: 40rpx;">▾</text>
+</view> -->
+<view class="date">{{showData[0].currentInfo.t}}</view>
+<view class="btn" bindtap="openSetting">指标选项</view>
+</view>
+<block wx:for="{{showData}}" wx:key="{{index}}">
+    <view class="second-title">
+    <view style="margin-right: 12rpx;">{{item.info.title}}{{item.info.title1}}</view>
+    <view style="margin-right: 12rpx;" class="{{m1.isHide(item.data)}}">总买{{item.currentInfo.b}}</view>
+    <view style="margin-right: 12rpx;" class="{{m1.isHide(item.data)}}">总卖{{m1.abs(item.currentInfo.s)}}</view>
+</view>
+ <view class="bar">
+ <bar
+        height="20"
+        width="{{width}}"
+        type="single"
+        minNum="0"
+        maxNum="50"
+        rectWidth="{{rectWidth}}"
+        data="{{item.data}}"
+        rectInterval="{{rectInterval}}"></bar>
+ </view>
+    
+</block>
+<popup id='popup' 
+title='设置' 
+btn_no='取消' 
+btn_ok='确定'
+wx:if="{{popUpTime === 1}}" 
+bind:no="settingDialogNo" 
+bind:ok="settingDialogYes">
+    <cover-view slot="content">
+    <cover-view class="checkbox" wx:for="{{settingItems}}">
+
+        <cover-view data-index="{{index}}" class="label" bindtap='checkItem'>
+
+          <cover-image class="icon-img" src="{{m1.isSelected(item.checked)}}" />
+          <cover-view class="title">{{item.value}}</cover-view>
+        </cover-view>
+      </cover-view>
+    </cover-view>
+</popup>
+</view>

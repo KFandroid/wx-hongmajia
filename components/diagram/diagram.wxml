@@ -1,0 +1,5 @@
+<!--components/diagram/diagram.wxml-->
+<view>
+<canvas bindtouchstart="moveCrosshair" style="width: {{width}}px; height: {{height}}px; " canvas-id="firstCanvas"></canvas>
+</view>
+

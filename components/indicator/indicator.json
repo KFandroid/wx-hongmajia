@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "Line": "../Line/Line",
+    "popup": "../popup/popup"
+  }
+}

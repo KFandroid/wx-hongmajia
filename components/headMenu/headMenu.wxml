@@ -1,0 +1,14 @@
+<!--components/headMenu/headMenu.wxml-->
+<view class="menu">
+  <image src="../../utils/images/menu.png" mode="aspectFit" bindtap='showMenu'></image>
+  <view class="menu-lists {{!menuShow?'hide':''}}">
+    <view class="list" bindtap='doSomething'>
+      <image src="../../utils/images/people_fill.png" mode="aspectFit"></image>我的</view>
+    <view class="list" bindtap='doSomething'>
+      <image src="../../utils/images/search.png" mode="aspectFit"></image>条件选择</view>
+    <view class="list" bindtap='doSomething' bindtap='navToCustomStock'>
+      <image src="../../utils/images/addition_fill.png" mode="aspectFit"></image>自选股</view>
+    <view class="list" bindtap='doSomething'>
+      <image src="../../utils/images/play_fill.png" mode="aspectFit"></image>大讲堂</view>
+  </view>
+</view>

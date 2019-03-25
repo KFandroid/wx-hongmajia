@@ -1,0 +1,68 @@
+<!--components/targetGraph/targetGraph.wxml-->
+<wxs module="m1">
+     var isSelected = function(isSelected) {
+    
+    if (isSelected) {
+      return '../../utils/images/radioCheck.png'
+    } else {
+      return '../../utils/images/radioUncheck.png'
+    }
+  }
+  var abs = function(num) {
+      if(num === '' || num === undefined) {
+          return ''
+      }
+      
+    return Math.abs(num)
+  }
+  var isHide = function(data) {
+      if(data.length === 0)
+      return 'hide'
+  }
+  module.exports.abs = abs
+  module.exports.isSelected = isSelected
+  module.exports.isHide = isHide
+</wxs>
+<view class="cover">
+<view class="main-title">
+<view class="btn" bindtap="openSetting">{{selectType}}
+    <text style="font-size: 40rpx;">▾</text>
+</view>
+<view class="date">{{showData[0].currentInfo.t}}</view>
+
+</view>
+<block wx:for="{{showData}}" wx:key="{{index}}">
+    <view class="second-title">
+    <view>{{item.info.title}}</view>
+    <view class="{{m1.isHide(item.data)}}">{{item.info.title1}}{{item.currentInfo.y1}}</view>
+    <view class="{{m1.isHide(item.data)}}">{{item.info.title2}}{{m1.abs(item.currentInfo.y2)}}</view>
+</view>
+    <bar
+        height="{{barGraphHeight}}"
+        width="{{width}}"
+        type="{{item.mode}}"
+        minNum="{{item.minNum}}"
+        maxNum="{{item.maxNum}}"
+        rectWidth="{{rectWidth}}"
+        data="{{item.data}}"
+        rectInterval="{{rectInterval}}"></bar>
+</block>
+<popup id='popup' 
+title='设置' 
+btn_no='取消' 
+btn_ok='确定'
+wx:if="{{popUpTime === 1}}" 
+bind:no="settingDialogNo" 
+bind:ok="settingDialogYes">
+    <cover-view slot="content">
+    <cover-view class="checkbox" wx:for="{{settingItems}}">
+
+        <cover-view data-index="{{index}}" class="label picker" bindtap='checkItem'>
+
+          <cover-image class="icon-img" src="{{m1.isSelected(item.checked)}}" />
+          <cover-view class="title picker_content">{{item.value}}</cover-view>
+        </cover-view>
+      </cover-view>
+    </cover-view>
+</popup>
+</view>

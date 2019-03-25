@@ -1,0 +1,29 @@
+<!--components/agentInfo/agentInfo.wxml-->
+<!--index.wxml-->
+<wxs module="m1">
+  var isRise = function(pcp, price) {
+    if (price > pcp) {
+      return 'red'
+    } else if(price < pcp) {
+      return 'green'
+    }
+  }
+
+  module.exports.isRise = isRise;
+</wxs>
+<view>
+  <view class="buy-container">
+    <view class="buy flex-box" wx:for="{{buyData}}" wx:key="{{index}}">
+      <view class="item">{{item.title}}</view>
+      <view class="item {{m1.isRise(pcp, item.price)}}">{{item.price}}</view>
+      <view class="item sp">{{item.num}}</view>
+    </view>
+  </view>
+  <view class="sale-container">
+    <view class="sale flex-box" wx:for="{{saleData}}" wx:key="{{index}}">
+      <view class="item">{{item.title}}</view>
+      <view class="item {{m1.isRise(pcp, item.price)}}">{{item.price}}</view>
+      <view class="item sp">{{item.num}}</view>
+    </view>
+  </view>
+</view>

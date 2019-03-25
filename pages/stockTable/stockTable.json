@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "pagination": "../../components/pagination/pagination",
+    "head-menu": "../../components/headMenu/headMenu"
+  }
+}

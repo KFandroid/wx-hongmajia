@@ -1,0 +1,40 @@
+/* components/agentDetail/agentDetail.wxss */
+
+.main {
+  width: 100%;
+  height: 100%;
+}
+
+.row {
+  width: 100%;
+  line-height: 30rpx;
+  display: flex;
+}
+
+.row .item {
+  flex: 1;
+  font-size: 20rpx;
+  text-align: center;
+}
+
+/* 
+.item.price {
+  color: red;
+}
+
+.item.hand {
+  color: lawngreen;
+} */
+
+.item.sp {
+  padding-right: 20rpx;
+  text-align: right;
+}
+
+.green {
+  color: green;
+}
+
+.red {
+  color: red;
+}

@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "bar": "../bar/bar",
+    "popup": "../popup/popup"
+  }
+}

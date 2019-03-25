@@ -1,0 +1,131 @@
+<!-- components/bestSelect/bestSelect.wxml -->
+<view class="container">
+  <view class="title" wx:if="{{!showDetail}}">
+    【{{date}}】
+    <text wx:if="{{!title}}">项目优选</text>
+    <text wx:if="{{title}}">{{title}}优选统计</text>
+    <!-- <view class="btn3" wx:if="{{!selectNo}}">
+      <picker mode="date" value="{{date}}" bindchange="bindDateChange">
+        <view class="datePicker">{{date}}</view>
+      </picker>
+      <image src="../../utils/images/date.png" mode="aspectFit"></image>
+    </view> -->
+    <tradeDateSelector bind:bindGetDate="bindGetDate" wx:if="{{!selectNo}}" secondDays="{{secondDays}}"></tradeDateSelector>
+    <view class="close" bindtap='closeTable' wx:if="{{selectNo}}">×</view>
+  </view>
+  <view class="header" wx:if="{{!selectNo && !showDetail}}">
+    <view class="item {{selected==item.no?'selected':''}}" wx:for="{{pickerArr}}" data-index="{{item.no}}" bindtap='selectIt'>
+      <text class="itemText">{{item.name}}</text>
+      <view class="subItem" wx:for="{{item.children}}" wx:for-index="idx" wx:for-item="itemName" data-index="{{itemName.cno}}" bindtap="openTable">
+        <text class="subItemText">{{itemName.cname}}</text>
+      </view>
+    </view>
+  </view>
+  <view class="table" wx:if="{{selectNo && !showDetail && !isYS}}">
+    <view class="tr">
+      <view class="td">周期</view>
+      <view class="td">1次</view>
+      <view class="td">2次</view>
+      <view class="td bdn">3次及以上</view>
+    </view>
+    <view class="tr">
+      <view class="td">3日</view>
+      <view class="td blue" data-index="31" data-title="3日内出现1次的股票" bindtap='showDetailCtrl'>
+        {{tableData[31]?tableData[31]:'0'}}
+      </view>
+      <view class="td blue" data-index="32" data-title="3日内出现2次的股票" bindtap='showDetailCtrl'>
+        {{tableData[32]?tableData[32]:'0'}}
+      </view>
+      <view class="td blue bdn" data-index="33" data-title="3日内出现3次的股票" bindtap='showDetailCtrl'>
+        {{tableData[33]?tableData[33]:'0'}}
+      </view>
+    </view>
+    <view class="tr">
+      <view class="td">5日</view>
+      <view class="td blue" data-index="51" data-title="5日内出现1次的股票" bindtap='showDetailCtrl'>
+        {{tableData[51]?tableData[51]:'0'}}
+      </view>
+      <view class="td blue" data-index="52" data-title="5日内出现2次的股票" bindtap='showDetailCtrl'>
+        {{tableData[52]?tableData[52]:'0'}}
+      </view>
+      <view class="td blue bdn" data-index="53" data-title="5日内出现3次的股票" bindtap='showDetailCtrl'>
+        {{tableData[53]?tableData[53]:'0'}}
+      </view>
+    </view>
+    <view class="tr">
+      <view class="td">10日</view>
+      <view class="td blue" data-index="101" data-title="10日内出现1次的股票" bindtap='showDetailCtrl'>
+        {{tableData[101]?tableData[101]:'0'}}
+      </view>
+      <view class="td blue" data-index="102" data-title="10日内出现2次的股票" bindtap='showDetailCtrl'>
+        {{tableData[102]?tableData[102]:'0'}}
+      </view>
+      <view class="td blue bdn" data-index="103" data-title="10日内出现3次的股票" bindtap='showDetailCtrl'>
+        {{tableData[103]?tableData[103]:'0'}}
+      </view>
+    </view>
+  </view>
+  <view class="table" wx:if="{{selectNo && !showDetail && isYS}}">
+    <view class="tr">
+      <view class="td td2" style="line-height:43rpx;height:55rpx;">条件</view>
+      <view class="td td2 bdn" style="line-height:43rpx;height:55rpx;">数量</view>
+    </view>
+    <view class="tr">
+      <view class="td td2" style="line-height:43rpx;height:55rpx;">10≤偏离值＜15</view>
+      <view data-index="10" data-title="达到10%的股票" class="td td2 blue bdn" style="line-height:43rpx;height:55rpx;" bindtap='showDetailCtrl'>
+        {{tableData[10]?tableData[10]:'0'}}
+      </view>
+    </view>
+    <view class="tr">
+      <view class="td td2" style="line-height:43rpx;height:55rpx;">
+        <text>15≤偏离值＜20</text>
+      </view>
+      <view data-index="15" style="line-height:43rpx;height:55rpx;" data-title="达到15%的股票" class="td td2 blue bdn" bindtap='showDetailCtrl'>
+        {{tableData[15]?tableData[15]:'0'}}
+      </view>
+    </view>
+    <view class="tr">
+      <view class="td td2" style="line-height:43rpx;height:55rpx;">偏离值≥20</view>
+      <view data-index="20" style="line-height:43rpx;height:55rpx;" data-title="达到20%的股票" class="td td2 blue bdn" bindtap='showDetailCtrl'>
+        {{tableData[20]?tableData[20]:'0'}}
+      </view>
+    </view>
+  </view>
+  <view class="stockTable" wx:if="{{showDetail}}">
+    <view class="subTitle">
+      <text class="subTitle_text">【{{date}}】【{{title}}】\n{{subTitle}}</text>
+      <view class="close" bindtap='closeDetail'>×</view>
+      <view class="tr2 tTitle">
+        <view class="td2 no">序</view>
+        <view class="td2 name">
+          <text style='width:100%;display:block;' bindtap="changeSort">名称</text>
+          <text style='width:100%;display:block;' bindtap="changeSort">代码</text>
+        </view>
+        <view class="td2 price">
+          <text style='width:100%;display:block;' bindtap="changeSort">价格</text>
+          <text style='width:100%;display:block;' bindtap="changeSort">涨幅</text>
+        </view>
+        <view class="td2 time" bindtap="changeSort">成交量</view>
+      </view>
+    </view>
+    <scroll-view scroll-y class="table2" id="table2" scroll-top="{{scrollTop}}" style="height: 200px;">
+      <view class="tr2" wx:for="{{data}}" wx:key="{{index}}" data-index="{{index}}" bindtap="changeStockAndStockList">
+        <view class="td2 no">{{index+1}}</view>
+        <view class="td2 name">
+          <text style='width:100%;display:block;'>{{item.stockName}}</text>
+          <text style='width:100%;display:block;'>{{item.stockCode}}</text>
+        </view>
+        <view class="td2 price">
+          <text style='width:100%;display:block;'>{{item.cjj}}</text>
+          <text style='width:100%;display:block;'>{{item.zf}}%</text>
+        </view>
+        <view class="td2 time">{{item.cjl}}</view>
+      </view>
+    </scroll-view>
+    <view class="pagination-container" style='height: {{heightNum}}rpx;'>
+      <view class='pageBtn' bindtap='pageUp' hidden="{{currentPage === 1}}">上一页</view>
+      <text>{{currentPage}}/{{totalPage}}页</text>
+      <view class='pageBtn' bindtap='pageDown' hidden="{{currentPage === totalPage}}">下一页</view>
+    </view>
+  </view>
+</view>

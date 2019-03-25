@@ -1,0 +1,32 @@
+<!-- components/stockDetail/stockDetail.wxml -->
+<view class="container">
+  <view class="title">{{selectStock.stockCode}} {{selectStock.stockName}} 历史异动明细</view>
+  <view class="flex-box flex-column thead">
+    <view class="flex-row ">
+      <text style="height:60rpx; line-height:60rpx;justify-content:flex-start;padding-left:10rpx;" class="flex-cell flex-row col-16-6">形成日期</text>
+      <text style="height:60rpx; line-height:60rpx" class="flex-cell flex-row col-16-6">异动项目</text>
+      <text style="height:60rpx; line-height:60rpx" class="flex-cell flex-row col-16-6">关键值</text>
+    </view>
+  </view>
+  <view class="scrollView">
+    <view class="flex-box flex-column">
+      <view class="flex-row" wx:for="{{data}}" wx:key="{{index}}">
+        <view style="height:60rpx; line-height:40rpx;justify-content:flex-start;padding-left:10rpx;" class="date-cell flex-cell flex-row col-16-6 ">
+          <text class="date">{{item.date}}</text>
+          <text class="time" wx:if="{{item.time}}">{{item.time}}</text>
+        </view>
+        <text style="height:60rpx; line-height:0px" class="flex-cell flex-row col-16-6">
+          {{item.name}}-{{item.cname}}
+        </text>
+        <text style="height:60rpx; line-height:0px" class="flex-cell flex-row col-16-6">
+          {{item.keyName}}{{item.keyValue}}
+        </text>
+      </view>
+    </view>
+  </view>
+  <view wx:if="{{totalPage}}" class="pagination-container">
+    <view class='pageBtn' bindtap='pageUp' hidden="{{currentPage === 1}}">上一页</view>
+    <text>{{currentPage}}/{{totalPage}}页</text>
+    <view class='pageBtn' bindtap='pageDown' hidden="{{currentPage === totalPage}}">下一页</view>
+  </view>
+</view>

@@ -1,0 +1,13 @@
+<!-- components/popup/popup.wxml -->
+<view class="wx-popup" hidden="{{flag}}">
+  <view class='popup-container'>
+    <view class="wx-popup-title" wx:if="{{showHeader}}">{{title}}</view>
+    <view class="wx-popup-con">
+      <slot name="content"></slot>
+    </view>
+    <view class="wx-popup-btn" wx:if="{{showFooter}}">
+      <view class="btn-no" bindtap='no'>{{btn_no}}</view>
+      <view class="btn-ok" bindtap='ok'>{{btn_ok}}</view>
+    </view>
+  </view>
+</view>

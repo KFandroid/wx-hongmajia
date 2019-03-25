@@ -1,0 +1,33 @@
+/* components/stockInfo/stockInfo.wxss */
+
+@import "../../utils/wxss/column.wxss";
+.stock-info {
+  width: 100%;
+  font-size: 20rpx;
+}
+
+.flex-box {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.flex-cell {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 24rpx;
+  height: 6vh;
+}
+
+.flex-2-row {
+  flex-direction: column;
+}
+
+.picker_content {
+  border: 1rpx solid #eee;
+  line-height: 54rpx;
+  height: 54rpx;
+}

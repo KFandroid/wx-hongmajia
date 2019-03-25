@@ -1,0 +1,65 @@
+<!-- components/history/history.wxml -->
+<view class="container">
+  <view class="one" wx:if="{{!showTwo}}">
+    <view class="title">
+      {{selectStock.stockCode?selectStock.stockCode:'000001'}} {{selectStock.stockName?selectStock.stockName:'平安银行'}} 历史上榜情况
+      <view class="tr bdt">
+        <view class="td td1" style="text-align:left;padding-left:10rpx;">上榜日期</view>
+        <view class="td td2">
+          <text>买量</text>
+          <text>卖量</text>
+        </view>
+        <view class="td td3">
+          <text>总量</text>
+          <text>总占比</text>
+        </view>
+      </view>
+    </view>
+    <view class="table">
+      <view class="tr" wx:for="{{showData}}" data-date="{{item.date}}" bindtap='openTwo'>
+        <view class="td td1" style="text-align:left;padding-left:10rpx;">{{item.date}}</view>
+        <view class="td td2">
+          <text>{{item.qbBuy}}</text>
+          <text>{{item.qbSell}}</text>
+        </view>
+        <view class="td td3">
+          <text>{{item.zl}}</text>
+          <text>{{item.zzb}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="two" wx:if="{{showTwo}}">
+    <view class="title">
+      <text style="width:100%;display:block;line-height:30rpx;margin-top:6rpx;">【{{selectDate}}】</text>
+      <text style="width:100%;display:block;line-height:30rpx;margin-top:6rpx;">{{selectStock.stockCode?selectStock.stockCode:'000001'}} {{selectStock.stockName?selectStock.stockName:'平安银行'}} 上榜明细</text>
+      <view class="close" bindtap='closeTwo'>×</view>
+      <view class="tr bdt">
+        <view class="td td4">序</view>
+        <view class="td td5" style="line-height:60rpx;">营业部名称</view>
+        <view class="td td6">
+          <text>买量</text>
+          <text>卖量</text>
+        </view>
+        <view class="td td7">
+          <text>总量</text>
+          <text>总占比</text>
+        </view>
+      </view>
+    </view>
+    <view class="table">
+      <view class="tr" wx:for="{{showDataTwo}}">
+        <view class="td td4">{{index+1}}</view>
+        <view class="td td5">{{item.name}}</view>
+        <view class="td td6">
+          <text>{{item.buy}}</text>
+          <text>{{item.sell}}</text>
+        </view>
+        <view class="td td7">
+          <text>{{item.zl}}</text>
+          <text>{{item.zzb}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

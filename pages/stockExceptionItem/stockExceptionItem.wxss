@@ -1,0 +1,187 @@
+/* pages/stockExceptionItem/stockExceptionItem.wxss */
+
+/* pages/stockTable/stockTable.wxss */
+@import "../../utils/css/column.wxss";
+
+.secondary-title {
+  display: flex;
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  z-index: 99;
+  justify-content: space-between;
+  font-size: 34rpx;
+  font-weight: bold;
+  line-height: 68rpx;
+  height: 68rpx;
+  padding: 0 17rpx;
+  border-bottom: 2rpx solid gray;
+}
+
+.detail-title {
+  position: sticky;
+  top: 70rpx;
+  background-color: #fff;
+  z-index: 99;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.btn-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-container .btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.detail-title {
+  font-size: 28rpx;
+  padding: 0 17rpx;
+  line-height: 56rpx;
+  height: 56rpx;
+  border-bottom: 2rpx solid gray;
+}
+
+.select-form {
+  display: flex;
+  position: sticky;
+  top: 96rpx;
+  background-color: #fff;
+  z-index: 100;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 24rpx;
+  padding: 0 17rpx;
+  line-height: 76rpx;
+  height: 76rpx;
+  border-bottom: 2rpx solid gray;
+  border-top: 2rpx solid gray;
+}
+
+.select-form .date-picker {
+  display: flex;
+  align-items: center;
+  height: 56rpx;
+  width: 200rpx;
+  border: 2rpx solid #707070;
+}
+
+.option-picker {
+  border: 2rpx solid #707070;
+  height: 56rpx;
+  display: flex;
+  justify-content: flex-start;
+  width: 260rpx;
+  align-items: center;
+  padding: 0 8rpx;
+}
+
+.select-form .date-picker .btn {
+  height: 60rpx;
+}
+
+.flex-box {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.flex-cell {
+  line-height: 8vh;
+  height: 8vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 28rpx;
+  border-bottom: 2rpx solid gray;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-2-row {
+  flex-direction: column;
+}
+
+.flex-left {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.flex-right {
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.flex-2-row text {
+  height: 38rpx;
+  line-height: 38rpx;
+}
+
+.flex-2-row t {
+  height: 38rpx;
+  line-height: 38rpx;
+}
+
+.date-cell {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.date-cell .date {
+  line-height: 40rpx;
+  height: 40rpx;
+  margin-right: 20rpx;
+}
+
+.date-cell .time {
+  line-height: 40rpx;
+  display: block;
+  height: 40rpx;
+  margin-right: 20rpx;
+}
+
+.thead {
+  position: sticky;
+  top: 174rpx;
+  background-color: #fff;
+  z-index: 99;
+}
+
+.flex-2-row {
+  flex-direction: column;
+}
+
+.flex-cell .btn {
+  height: 50%;
+  width: 100%;
+  padding-left: 24rpx;
+}
+
+.flex-title {
+  top: 0;
+}
+
+.picker_content {
+  border: 1rpx solid #eee;
+  line-height: 54rpx;
+  height: 54rpx;
+}

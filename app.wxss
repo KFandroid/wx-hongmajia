@@ -1,0 +1,12 @@
+/**app.wxss**/
+.container {
+  height: 100%;
+  /* display: flex; */
+  flex-direction: column;
+  align-items: center;
+  margin: 0 4rpx;
+  border-right: 2rpx solid gray;
+  border-left: 2rpx solid gray;
+  justify-content: space-between;
+  box-sizing: border-box;
+} 

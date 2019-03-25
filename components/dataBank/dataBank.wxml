@@ -1,0 +1,8 @@
+<!--components/dataBank/dataBank.wxml-->
+<view>
+  <scroll-view scroll-y class="info-container" style="height: 300rpx;">
+    <view class="row" wx:for="{{items}}" wx:key="{{index}}">
+        <view>{{item.name}}:XXX</view>
+    </view>
+  </scroll-view>
+</view>

@@ -1,0 +1,46 @@
+<!--pages/stockTable/stockTable.wxml-->
+<view>
+   <stock-info stock-info="{{stockInfo}}" bindaddevent="showPopup"></stock-info>
+  <view class="select-form">
+    <view class="option-picker">
+      <picker bindchange="bindOptionChange" range-key="totalName" value="{{index}}" range="{{itemArr}}">
+        <view class="picker">
+          项目：{{itemArr[index].totalName}}
+        </view>
+      </picker>
+    </view>
+  </view>
+  <view class="flex-box flex-column thead">
+    <view class="flex-row ">
+      <text data-sort="001" bindtap="changeSort" style="height:{{lineHeight}}px; line-height:34px" class="flex-cell flex-row col-16-4">形成日期</text>
+      <text style="height:{{lineHeight}}px; line-height:34px" class="flex-cell flex-row col-16-8">异动项目</text>
+      <text style="height:{{lineHeight}}px; line-height:34px" class="flex-cell flex-row col-16-4">关键值</text>
+    </view>
+  </view>
+  <scroll-view class="scrollView" scroll-y="true" style='height: {{scrollHeight}}px;'>
+    <view class="flex-box flex-column">
+      <view class="flex-row" wx:for="{{data}}" wx:key="{{index}}">
+        <view style="height:{{lineHeight}}px; line-height:{{lineHeight}}px" class="date-cell flex-cell flex-row col-16-4 ">
+          <text class="date">{{item.date}}</text>
+          <text class="time">{{item.time}}</text>
+        </view>
+        <text style="height:{{lineHeight}}px; line-height:0px" class="flex-cell flex-row col-16-8">
+    {{item.name}}-{{item.cname}}
+    </text>
+        <text style="height:{{lineHeight}}px; line-height:0px" class="flex-cell flex-row col-16-4">
+    {{item.keyName}}{{item.keyValue}}
+    </text>
+      </view>
+    </view>
+  </scroll-view>
+  <pagination bindpageup="pageUp" bindpagedown="pageDown" currentPage="{{page}}" totalPage="{{totalPage}}"></pagination>
+  <popup id='popup' title='请选择板块' btn_no='取消 ' btn_ok='确定 ' bind:no="closePop" bind:ok="addCustom">
+    <view slot="content">
+      <picker class="picker" bindchange="bindPickerChange" value="{{selectedId}}" range="{{selector}}" range-key="name">
+        <view class="picker_content">
+          {{selector[selectedId].name}}
+        </view>
+      </picker>
+    </view>
+  </popup>
+</view>

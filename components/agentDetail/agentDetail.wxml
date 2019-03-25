@@ -1,0 +1,19 @@
+<!--components/agentDetail/agentDetail.wxml-->
+<wxs module="m1">
+  var isRise = function(pcp, price) {
+    if (price > pcp) {
+      return 'red'
+    } else if(price < pcp) {
+      return 'green'
+    }
+  }
+
+  module.exports.isRise = isRise;
+</wxs>
+<view class="main">
+  <view class="row" wx:for="{{data}}" wx:key="{{key}}">
+    <view class="item">{{item.time}}</view>
+    <view class="item price {{m1.isRise(pcp, item.price)}}">{{item.price}}</view>
+    <view class="item sp hand">{{item.hand}}</view>
+  </view>
+</view>

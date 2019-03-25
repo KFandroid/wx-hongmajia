@@ -1,0 +1,66 @@
+<!-- pages/setting/setting.wxml -->
+<view class="content">
+    <view>
+        <view class="tab_header" data-index="1" bindtap='tabSpread'>1.KDJ参数设置</view>
+        <view class="tab_body {{tabSelect==1?'tab_body_show':''}}">               
+                <view class="row">
+                    <view class="label">N1:</view>
+                    <input data-name="kdj1" value="{{indicatorSetting.kdj1}}" bindblur="inpuParam" class="input_name" type="number"></input>
+                </view>
+        </view>
+        <view class="tab_header" data-index="2" bindtap='tabSpread'>2.RSI参数设置</view>
+        <view class="tab_body {{tabSelect==2?'tab_body_show':''}}">               
+                <view class="row">
+                    N1:<input data-name="rsi1" value="{{indicatorSetting.rsi1}}" bindblur="inpuParam" class="input_name" type="number"></input>
+                </view>
+                <view class="row">
+                    N2:<input data-name="rsi2" value="{{indicatorSetting.rsi2}}" bindblur="inpuParam" class="input_name" type="number"></input>
+                </view>
+                <view class="row">
+                    N3:<input data-name="rsi3" value="{{indicatorSetting.rsi3}}" bindblur="inpuParam" class="input_name" type="number"></input>
+                </view>
+        </view>
+        <view class="tab_header" data-index="3" bindtap='tabSpread'>3.W&R参数设置</view>
+        <view class="tab_body {{tabSelect==3?'tab_body_show':''}}">               
+                <view class="row">
+                    N1:<input data-name="wr1" value="{{indicatorSetting.wr1}}" bindblur="inpuParam" class="input_name" type="number"></input>
+                </view>
+                <view class="row">
+                    N2:<input data-name="wr2" value="{{indicatorSetting.wr2}}" bindblur="inpuParam" class="input_name" type="number"></input>
+                </view>
+        </view>
+        <view class="tab_header" data-index="4" bindtap='tabSpread'>4.BOLL参数设置</view>
+        <view class="tab_body {{tabSelect==4?'tab_body_show':''}}">               
+                <view class="row">
+                    N1:<input data-name="boll1" value="{{indicatorSetting.boll1}}" bindblur="inpuParam" class="input_name" type="number"></input>
+                </view>
+                <view class="row">
+                    M:<input data-name="boll2" value="{{indicatorSetting.boll2}}" bindblur="inpuParam" class="input_name" type="number"></input>
+                </view>
+        </view>
+        <view class="tab_header" data-index="5" bindtap='tabSpread'>5.BIAS参数设置</view>
+        <view class="tab_body {{tabSelect==5?'tab_body_show':''}}">               
+                <view class="row">
+                    N1:<input data-name="bias1" value="{{indicatorSetting.bias1}}" bindblur="inpuParam" class="input_name" type="number"></input>
+                </view>
+                <view class="row">
+                    N2:<input data-name="bias2" value="{{indicatorSetting.bias2}}" bindblur="inpuParam" class="input_name" type="number"></input>
+                </view>
+                <view class="row">
+                    N3:<input data-name="bias3" value="{{indicatorSetting.bias3}}" bindblur="inpuParam" class="input_name" type="number"></input>
+                </view>
+        </view>
+       
+    </view>
+    <view class="btn">
+        <view class="btn-no" bindtap='no'>取消</view>
+        <view class="btn-ok" bindtap='ok'>确定</view>
+    </view>
+</view>
+<popup id='popup' title='添加自选股' btn_no='取消' btn_ok='确定' bind:no="closePop" bind:ok="addCustom">
+    <view slot="content">
+        <picker class="picker" bindchange="bindPickerChange" value="{{selectedId}}" range="{{selector}}" range-key="name">
+            <view class="picker_content">{{selector[selectedId].name}}</view>
+        </picker>
+    </view>
+</popup>

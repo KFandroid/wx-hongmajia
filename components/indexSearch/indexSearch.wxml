@@ -1,0 +1,134 @@
+<!-- components/indexSearch/indexSearch.wxml -->
+<wxs module="m1">
+  var isCurrentSortItem = function(item, currentSortItem, sortCode) {
+    if (item === currentSortItem) {
+      if (sortCode[3] === '0') {
+        return 'order'
+      } else {
+        return 'reverse'
+      }
+
+    } else {
+      return ''
+    }
+  }
+  var isCurrentSortItem2 = function(item, currentSortItem, sortCode) {
+    if (item === currentSortItem) {
+      if (sortCode[3] === '0') {
+        return 'order2'
+      } else {
+        return 'reverse2'
+      }
+
+    } else {
+      return ''
+    }
+  }
+  module.exports.isCurrentSortItem = isCurrentSortItem;
+  module.exports.isCurrentSortItem2 = isCurrentSortItem2;
+</wxs>
+<view class="container">
+  <view class="news" wx:if="{{!showDetail}}">
+    【{{date}}】异动统计
+    <!-- <view class="btn3">
+      <picker mode="date" value="{{date}}" bindchange="bindDateChange">
+        <view class="picker">
+          {{date}}
+        </view>
+      </picker>
+      <image src="../../utils/images/date.png" mode="aspectFit"></image>
+    </view> -->
+    <tradeDateSelector bind:bindGetDate="bindGetDate"></tradeDateSelector>
+  </view>
+  <view class="main" hidden="{{showDetail}}">
+    <view class="title">
+      <view class="name">项目名称</view>
+      <view class="count">数量</view>
+    </view>
+    <view class="row" wx:for="{{tree}}" wx:key="{{item.no}}">
+      <view class="name {{childOneShow===item.no?'selected':''}}" data-no="{{item.no}}" data-index="{{index}}" bindtap='showChildOne'>
+        {{item.name}}
+      </view>
+      <view class="count {{childTwoShow===item.no?'selected':''}}" data-no="{{item.no}}" bindtap='showChildTwo'>
+        {{item.count}}
+      </view>
+      <view class="child child1" wx:if="{{childOneShow===item.no}}" wx:for="{{item.children}}" wx:for-item="childItem" wx:key="{{childItem.cno}}">
+        <view class="item name" bindtap="navigateToTable" data-name="{{item.name}}-{{childItem.cname}}" data-cno="{{childItem.cno}}">
+          {{childItem.cname}}
+        </view>
+        <view class="item count {{childThreeShow===childItem.cno?'selected':''}}" data-cno="{{childItem.cno}}" bindtap='showChildThree'>
+          {{childItem.count}}
+        </view>
+        <view class="child3" wx:if="{{childThreeShow===childItem.cno}}">
+          <view class="childLeft">当前剩余数量 {{childItem.count}}</view>
+          <view class="childRight">本期变更增加数量 {{childItem.increase}}</view>
+        </view>
+        <view class="child3" wx:if="{{childThreeShow===childItem.cno}}">
+          <view class="childLeft">当前退出数量 {{childItem.quit}}</view>
+          <view class="childRight">本期变更减少数量 {{childItem.decrease}}</view>
+        </view>
+      </view>
+      <view class="child child2" wx:if="{{childTwoShow===item.no}}">
+        <view class="childLeft">当前剩余数量 {{item.count}}</view>
+        <view class="childRight">本期变更增加数量 {{item.increase}}</view>
+      </view>
+      <view class="child child2" wx:if="{{childTwoShow===item.no}}">
+        <view class="childLeft">当前退出数量 {{item.quit}}</view>
+        <view class="childRight">本期变更减少数量 {{item.decrease}}</view>
+      </view>
+    </view>
+  </view>
+  <view class="stockTable" wx:if="{{showDetail}}">
+    <view class="subTitle">
+      【{{date}}】【{{title}}】
+      <view class="close" bindtap='closeDetail'>×</view>
+      <view class="tr tTitle">
+        <view class="td no">序</view>
+        <view class="td name">
+          <text style='width:100%;display:block;height:30rpx;line-height:10rpx;' data-sort="002" bindtap="changeSort" class="{{m1.isCurrentSortItem('name', currentSortItem, sortCode)}}">
+            名称
+          </text>
+          <text style='width:100%;display:block;height:30rpx;line-height:10rpx;' data-sort="001" bindtap="changeSort" class="{{m1.isCurrentSortItem('code', currentSortItem, sortCode)}}">
+            代码
+          </text>
+        </view>
+        <view class="td price">
+          <text style='width:100%;display:block;height:30rpx;line-height:10rpx;' data-sort="003" bindtap="changeSort" class="{{m1.isCurrentSortItem('price', currentSortItem, sortCode)}}">
+            价格
+          </text>
+          <text style='width:100%;display:block;height:30rpx;line-height:10rpx;' data-sort="004" bindtap="changeSort" class="{{m1.isCurrentSortItem('rise', currentSortItem, sortCode)}}">
+            涨幅
+          </text>
+        </view>
+        <view class="td time {{m1.isCurrentSortItem2('time', currentSortItem, sortCode)}}" wx:if="{{date == today}}" data-sort="005" bindtap="changeSort">
+          更新时间
+        </view>
+        <view class="td time {{m1.isCurrentSortItem2('time', currentSortItem, sortCode)}}" wx:else data-sort="006" bindtap="changeSort">
+          成交量
+        </view>
+        <view class="td keyValue {{m1.isCurrentSortItem('key', currentSortItem, sortCode)}}" data-sort="007" bindtap="changeSort">
+          关键值
+        </view>
+      </view>
+    </view>
+    <view class="table">
+      <view class="tr" wx:for="{{detailData}}" data-index="{{index}}" bindtap="changeStockAndStockList">
+        <view class="td no">{{index+1}}</view>
+        <view class="td name">
+          <text>{{item.stockName}}\n{{item.stockCode}}</text>
+        </view>
+        <view class="td price">
+          <text>{{item.lastTrade}}\n{{item.rise}}%</text>
+        </view>
+        <view class="td time" wx:if="{{date == today}}">{{item.updateTime}}</view>
+        <view class="td time" wx:else>{{item.hand}}</view>
+        <view class="td keyValue">{{item.keyValue}}</view>
+      </view>
+    </view>
+    <view class="pagination-container" style='height: {{heightNum}}rpx;'>
+      <view class='pageBtn' bindtap='pageUp' hidden="{{currentPage === 1}}">上一页</view>
+      <text>{{currentPage}}/{{totalPage}}页</text>
+      <view class='pageBtn' bindtap='pageDown' hidden="{{currentPage === totalPage}}">下一页</view>
+    </view>
+  </view>
+</view>

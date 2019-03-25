@@ -1,0 +1,20 @@
+/* components/tradeDateSelector/tradeDateSelector.wxss */
+
+.btn3 {
+    padding-right: 40rpx;
+    position: relative;
+    float: right;
+}
+
+.btn3 image {
+    width: 30rpx;
+    height: 30rpx;
+    position: absolute;
+    right: 4rpx;
+    top: 50%;
+    transform: translateY(-15rpx);
+}
+
+.datePicker {
+    font-size: 24rpx;
+}

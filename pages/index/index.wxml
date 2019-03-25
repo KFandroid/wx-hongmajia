@@ -1,0 +1,318 @@
+<!-- index.wxml -->
+<wxs module="m1">
+  var isSelected = function(isSelected) {
+    if (isSelected) {
+      return '../../utils/images/checked.png'
+    } else {
+      return '../../utils/images/unchecked.png'
+    }
+  }
+  var isClose = function(open) {
+    if (open) {
+      return ">>"
+    } else {
+      return "<<"
+    }
+  }
+  var upIcon  = function(down) {
+    if(!down) {
+      return "../../utils/images/unableup.png"
+    } else {
+      return  "../../utils/images/up.png"
+    }
+  }
+  var downIcon = function(down) {
+    if(!down) {
+      return "../../utils/images/unabledown.png"
+    } else {
+      return  "../../utils/images/down.png"
+    }
+  }
+  var leftIcon = function(down) {
+    if(!down) {
+      return "../../utils/images/unableleft.png"
+    } else {
+      return  "../../utils/images/left.png"
+    }
+  }
+  var rightIcon = function(down) {
+    if(!down) {
+      return "../../utils/images/unableright.png"
+    } else {
+      return  "../../utils/images/right.png"
+    }
+  }
+  var isHide = function(hide, index) {
+    if (parseInt(hide) === index) {
+      return 'show'
+    } else {
+      return 'hide'
+    }
+  }
+
+  var mycheck = function(origin, str) {
+    if (origin.indexOf(str) > -1) {
+      return '../../utils/images/checked.png'
+    } else {
+      return '../../utils/images/unchecked.png'
+    }
+  }
+  var radioIsSelected = function(isSelected) {
+    if (isSelected) {
+      return '../../utils/images/radioCheck.png'
+    } else {
+      return '../../utils/images/radioUncheck.png'
+    }
+  }
+  module.exports.upIcon = upIcon
+  module.exports.downIcon = downIcon
+  module.exports.rightIcon = rightIcon
+  module.exports.leftIcon = leftIcon
+  module.exports.isSelected = isSelected;
+  module.exports.isClose = isClose;
+  module.exports.isHide = isHide;
+  module.exports.mycheck = mycheck;
+  module.exports.radioIsSelected = radioIsSelected;
+</wxs>
+<!-- {{getAllStatic==true?'':'transparent'}}" -->
+<view class="container" >
+  <view class="header col-16-16 stockInfo">
+    <stock-info stock-info="{{stockInfo}}"></stock-info>
+  </view>
+  <view class="main-view flex-box col-16-16">
+    <view class="left col-24-16">
+      <view class="menu-bar flex-box col-16-16">
+        <view class="col-16-5 btn {{selectIndex==1?'btn-selected':''}}" bindtap="{{selectIndex!==1?'changeSelectIndex':''}}" data-index="1" style="width: 170rpx;">
+          {{date}}
+        </view>
+        <view class="col-16-2 btn {{selectIndex==2?'btn-selected':''}}" bindtap="{{selectIndex!==2?'changeSelectIndex':''}}" data-index="2" style="width: 70rpx;">
+          日K
+        </view>
+        <view class="col-16-2 btn {{selectIndex==5?'btn-selected':''}}" bindtap="{{selectIndex!==5?'changeSelectIndex':''}}" data-index="5" style="width: 70rpx;">
+          周K
+        </view>
+        <view class="col-16-2 btn {{selectIndex==3?'btn-selected':''}}" bindtap="{{selectIndex!==3?'changeSelectIndex':''}}" data-index="3" style="width: 70rpx;">
+          5分
+        </view>
+        <view class="col-16-2 btn {{selectIndex==4?'btn-selected':''}}" bindtap="{{selectIndex!==4?'changeSelectIndex':''}}" data-index="4" style="width: 70rpx;">
+          30分
+        </view>
+        <view class="col-16-1 btn" style="flex-grow: 1;"></view>
+        <!-- <view class="col-16-1 btn" style="width: 35rpx;">选</view> -->
+        <view class="col-16-2 btn" style="width: 70rpx; border:none;" bindtap="hideDeal">
+          {{m1.isClose(showDeal)}}
+        </view>
+      </view>
+      <view class="left-top">
+        <KLines selectIndex="{{selectIndex}}" class="{{selectIndex>1?'show':'hide'}}" bind:showcurrentInfo="showKInfo" bind:changevollength="changeVolLength" bind:drawkcrosshair="drawKCrosshair" id="klines" height="{{diagramHeight}}" width="{{diagramWidth}}" kLinesData="{{kLinesData}}" kLinesDataCurrent="{{kLinesDataCurrent}}" rfArr="{{rfArr}}" kSettingItem="{{kSettingItem}}" bind:getPrevData="getPrevKData"></KLines>
+        <diagram class="{{m1.isHide(selectIndex, 1)}}" 
+        bind:showcurrentInfo="showCurrentInfo" 
+        bind:drawcrosshair="drawCrossHair" 
+        id="diagram" height="{{diagramHeight}}" 
+        drawData="{{drawData}}"
+        isStock="{{isStock}}"
+        width="{{diagramWidth}}" 
+        kSettingItem="{{kSettingItem}}"></diagram>
+      </view>
+      <view class="left-menu-bar flex-box">
+        <view class="flex-box col-10-8 fs-container" wx:if="{{selectIndex === 1}}">
+          <image mode="widthFix" catchtap='stockUp' src="{{m1.upIcon(rwLocal)}}"></image>
+          <image mode="widthFix" catchtap='stockDown' src="{{m1.downIcon(rwLocal)}}"></image>
+          <image mode="widthFix" catchtap='diagramMoveLeft' src="{{m1.leftIcon(diagramLeft)}}"></image>
+          <image mode="widthFix" catchtap='diagramMoveRight' src="{{m1.rightIcon(diagramRight)}}"></image>
+        </view>
+        <view class="flex-box col-10-8 bar-item-container" wx:if="{{selectIndex > 1}}">
+          <image mode="widthFix" class="boost" catchtap='bindBoost' src="../../utils/images/boost.png"></image>
+          <image mode="widthFix" class="narrow" catchtap='bindNarrow' src="../../utils/images/narrow.png"></image>
+          <image mode="widthFix" catchtap='moveLeft' src="../../utils/images/left.png"></image>
+          <image mode="widthFix" catchtap='moveRight' src="../../utils/images/right.png"></image>
+          <image mode="widthFix" catchtap='stockUp' src="{{m1.upIcon(rwLocal)}}"></image>
+          <image mode="widthFix" catchtap='stockDown' src="{{m1.downIcon(rwLocal)}}"></image>
+        </view>
+        <view class="btn" bindtap='toSetting'>设置</view>
+      </view>
+      <view class="left-bottom">
+        <volumeLines
+        selectIndex="{{selectIndex}}" 
+        start="{{volStart}}"
+        end="{{volEnd}}"
+         bind:drawkcrosshair="drawKCrosshair" 
+         rectWidth="{{volWidth}}" 
+         selectIndex="{{selectIndex}}" 
+         rectInterval="{{volInterval}}" 
+         id="volumeLines" 
+         class="{{selectIndex>1?'show':'hide'}}" 
+         height="{{dealHeight}}" 
+         width="{{dealWidth}}"
+         kLinesData="{{kLinesData}}" 
+         kLinesDataCurrent="{{kLinesDataCurrent}}" 
+         rfArr="{{rfArr}}" 
+         kSettingItem="{{kSettingItem}}"></volumeLines>
+        <stock-deal class="{{m1.isHide(selectIndex, 1)}}" bind:showcurrentInfo="showCurrentInfo" bind:drawcrosshair="drawCrossHair2" id='stockDeal' height="{{dealHeight}}" drawData="{{drawData}}" width="{{dealWidth}}" kSettingItem="{{kSettingItem}}"></stock-deal>
+      </view>
+    </view>
+    <view class="right col-24-8" wx:if="{{showDeal}}">
+      <view class="menu-bar flex-box col-16-16">
+        <view class="col-16-8 btn {{sideSelect==1?'btn-selected':''}}" bindtap='changeSideSelect' data-index="1">行情</view>
+        <view class="col-16-8 btn {{sideSelect==2?'btn-selected':''}}" bindtap='changeSideSelect' data-index="2" style="border-right:none;">资料</view>
+      </view>
+      <view class="right-top">
+        <agent-info class="{{sideSelect==1?'':'hide'}}" agentData="{{agentInfo}}"></agent-info>
+        <data-bank class="{{sideSelect==2?'':'hide'}}"></data-bank>
+      </view>
+      <view class="right-bottom">
+        <agent-detail pcp="{{stockPcp}}" agentData="{{agentDetail}}"></agent-detail>
+      </view>
+    </view>
+  </view>
+  <view class="main-view flex-box col-16-16 under-view">
+    <view class="left col-24-16">
+      <view class="menu-bar flex-box col-16-16" style="border-top:none;justify-content:flex-start;">
+        <view class="btn" style='width:160rpx;color:#fff;background-color:gray;'>
+          项目：{{bottomTab[bottomIndex - 1]}}
+        </view>
+        <!-- 盘口 -->
+        <view class="subTab {{subSelect==1?'btn-selected':''}}" wx:if="{{selectIndex == 1 && bottomIndex==1 &&!isStock}}" data-index="1" bindtap='changeSubSelect'>
+          监控
+        </view>
+        <view class="subTab {{subSelect==2?'btn-selected':''}}" wx:if="{{selectIndex == 1 && bottomIndex==1 &&!isStock}}" data-index="2" bindtap='changeSubSelect'>
+          统计
+        </view>
+        <view class="subTab {{subSelect==3?'btn-selected':''}}" wx:if="{{selectIndex == 2 && bottomIndex==1 &&isStock}}" data-index="3" bindtap='changeSubSelect'>
+          指标
+        </view>
+        <view class="subTab {{subSelect==6?'btn-selected':''}}" wx:if="{{selectIndex > 1 && bottomIndex==1 &&!isStock}}" data-index="6" bindtap='changeSubSelect'>
+          指标
+        </view>
+        <view class="subTab {{subSelect==4?'btn-selected':''}}" wx:if="{{selectIndex == 1 && isStock && bottomIndex==1}}" data-index="4" bindtap='changeSubSelect'>
+          明细
+        </view>
+        <view class="subTab {{subSelect==5?'btn-selected':''}}" wx:if="{{bottomIndex==1}}" data-index="5" bindtap='changeSubSelect'>
+          优选
+        </view>
+        <!-- 龙虎榜 -->
+        <view class="subTab {{subSelect==11?'btn-selected':''}}" wx:if="{{bottomIndex==2&&!isStock&&selectIndex==1}}" data-index="11" bindtap='changeSubSelect'>
+          明细
+        </view>
+        <view class="subTab {{subSelect==12?'btn-selected':''}}" wx:if="{{bottomIndex==2&&!isStock&&selectIndex==2}}" data-index="12" bindtap='changeSubSelect'>
+          指标
+        </view>
+        <view class="subTab {{subSelect==13?'btn-selected':''}}" wx:if="{{bottomIndex==2&&isStock&&selectIndex==1}}" data-index="13" bindtap='changeSubSelect'>
+          历史
+        </view>
+        <view class="subTab {{subSelect==14?'btn-selected':''}}" wx:if="{{bottomIndex==2&&isStock&&selectIndex == 2}}" data-index="14" bindtap='changeSubSelect'>
+          指标
+        </view>
+        <view class="subTab {{subSelect==15?'btn-selected':''}}" wx:if="{{bottomIndex==2}}" data-index="15" bindtap='changeSubSelect'>
+          选股
+        </view>
+      </view>
+      <view class="left-top" style="height: {{underViewHeight}}px;">
+        <component-monitor 
+        wx:if="{{subSelect == 1 && bottomIndex != 7}}" t126="{{t126}}" bind:getMore="getMorek127" t127="{{t127}}" bind:getK126="getK126"></component-monitor>
+        <component-indexSearch 
+        wx:if="{{subSelect == 2 && bottomIndex != 7}}" t101="{{t101}}" t106="{{t106}}" t102="{{t102}}" pickerDate='{{dateBottom}}' bind:getK103="getK103" t103="{{t103}}" bind:stopGetK103="stopGetK103" bind:closeGetChild="closeGetChild" bind:dateChange="dateChange" bind:getChild="getT102" bindtap='closeMenu'></component-indexSearch>
+        <component-bestSelect 
+        wx:if="{{subSelect == 5 && bottomIndex != 7}}" t120="{{t120}}" bind:getK120="getK120" bind:getBestSelect="getBestSelect" bestSelectData="{{bestSelectData}}"></component-bestSelect>
+        <stock-target-graph selectIndex="{{selectIndex}}" lsData="{{ydStockLsData}}" currentData="{{ydStockCurrentData}}"
+         wx:if="{{subSelect == 3&&selectIndex==2 && bottomIndex != 7}}" id="stocktarget" height="{{underViewHeight}}" width="{{dealWidth - 2}}"></stock-target-graph>
+        <lhb-stock-target-graph lsData="{{t141}}" selectIndex="{{selectIndex}}"
+         wx:if="{{subSelect == 14&&selectIndex==2 && bottomIndex == 2}}" id="stocktarget" height="{{underViewHeight}}" width="{{dealWidth - 2}}"></lhb-stock-target-graph>
+        <target-graph 
+        selectIndex="{{selectIndex}}" 
+        lsData="{{ydlsData}}" 
+        currentData="{{ydCurrentData}}"
+         wx:if="{{subSelect==6&&selectIndex==2 && bottomIndex == 1}}" 
+         height="{{underViewHeight}}" 
+         width="{{dealWidth - 3}}"></target-graph>
+         <data-info-graph
+        selectIndex="{{selectIndex}}"
+         wx:if="{{bottomIndex == 4}}" 
+         height="{{underViewHeight}}" 
+         width="{{dealWidth - 3}}"></data-info-graph>
+        <lhb-target-graph lsData="{{t133}}" selectIndex="{{selectIndex}}"
+         wx:if="{{subSelect==12&&selectIndex==2 && bottomIndex == 2}}" height="{{underViewHeight}}" width="{{dealWidth - 3}}"></lhb-target-graph>
+        <component-stockDetail wx:if="{{subSelect==4}}" stockDetailData="{{stockDetailData}}"></component-stockDetail>
+        <component-history 
+        t138="{{t138}}" 
+        t139="{{t139}}" 
+        bind:getK139="getK139"
+         bind:getK138="getK138" 
+         bind:tabUse="tabUse" 
+         wx:if="{{subSelect==13 && bottomIndex == 2}}"></component-history>
+        <component-lhbDetail wx:if="{{subSelect==11}}" bind:tabUse="tabUse" bind:getK134="getK134" bind:getK136="getK136" bind:getK137="getK137" t136="{{t136}}" t137="{{t137}}" t134="{{t134}}"></component-lhbDetail>
+        <indicator  
+        selectIndex="{{selectIndex}}"
+        bottomIndex="{{bottomIndex}}"
+        start="{{volStart}}" 
+        end="{{volEnd}}"
+        id="indicator" 
+        bind:drawkcrosshair="drawKCrosshair" 
+        rectWidth="{{volWidth}}" 
+        selectIndex="{{selectIndex}}" 
+        rectInterval="{{volInterval}}"
+        class="{{bottomIndex == 7 ?'show':'hide'}}" 
+        height="{{underViewHeight}}" 
+        width="{{dealWidth - 3}}" 
+        kLinesData="{{kLinesData}}" 
+        kLinesDataCurrent="{{kLinesDataCurrent}}" 
+        rfArr="{{rfArr}}"
+        ></indicator>
+        <component-optionalStock wx:if="{{subSelect==16}}" bind:getK107="getK107" bind:stopGetK107="stopGetK107" t107="{{t107}}"></component-optionalStock>
+      </view>
+    </view>
+    <view class="right col-24-8" wx:if="{{showDeal}}"></view>
+  </view>
+  <view class="left-menu-bar flex-box under col-16-16">
+    <view class="under_content">
+      <view 
+      wx:for="{{bottomTab}}" 
+      wx:key="index" 
+      class="under-btn {{selectIndex === 1 && index === 6 ?'hide':''}} {{bottomIndex== (index + 1) ?'btn-selected':''}}" 
+      data-index="{{index + 1}}" 
+      bindtap='bottomTabChange'>
+        {{item}}
+      </view>
+    </view>
+  </view>
+  <view class="currentInfo" wx:if="{{showCurrentInfo && selectIndex === 1 && showDeal}}">
+    <view style="border-bottom: 2rpx solid gray;" class="col-16-16">
+      {{stockInfo.name}}{{stockInfo.stockNo}}详情
+    </view>
+    <view class="col-16-16">时间:{{currentInfo.date}}</view>
+    <view class="col-16-16">价格:{{currentInfo.dealPrice}}</view>
+    <view class="col-16-16">成交量:{{currentInfo.dealA}}</view>
+    <view class="col-16-16">成交额:{{currentInfo.dealN}}</view>
+    <view class="col-16-16">均价:{{currentInfo.averagePrice}}</view>
+    <view class="col-16-16">均量:{{currentInfo.averageDa}}</view>
+    <view class="col-16-16 btn-container">
+      <view class="close-btn" bindtap="closeCurrentInfo">关闭</view>
+    </view>
+  </view>
+  <view class="currentInfo" wx:if="{{showKInfo && selectIndex > 1 && showDeal}}">
+    
+    <view style="border-bottom: 2rpx solid gray; height: 40rpx;" class="col-16-16">
+      {{stockInfo.name}}{{stockInfo.stockNo}}详情
+    </view>
+    <scroll-view scroll-y="{{true}}" class="scroll-container" style="height: 248rpx;">
+      <view class="col-16-16">日期:{{kInfo.date}}</view>
+    <view class="col-16-16">开盘:{{kInfo.open}}</view>
+    <view class="col-16-16">收盘:{{kInfo.price}}</view>
+    <view class="col-16-16">最高:{{kInfo.high}}</view>
+    <view class="col-16-16">最低:{{kInfo.low}}</view>
+    <view class="col-16-16">成交量:{{kInfo.showVolume}}</view>
+    <view class="col-16-16">成交额:{{kInfo.showValue}}</view>
+    </scroll-view>
+    <!-- <view class="col-16-4">移动均线1:{{kInfo.averageDa}}</view>
+    <view class="col-16-4">成本均线1:{{kInfo.averageDa}}</view>
+    <view class="col-16-4">均量1:{{kInfo.averageDa}}</view>
+    <view class="col-16-4">均量2:{{kInfo.averageDa}}</view> -->
+    <view class="col-16-16">
+      <view class="close-btn btn-container" bindtap="closeKCrosshair">关闭</view>
+    </view>
+  </view>
+</view>
+<!-- <view  class="mask {{getAllStatic==true?'hide':''}}">
+  <view style="">加载中</view>
+  <image mode="widthFix" style="width: 100rpx;" class="loading" src="../../utils/images/loading.png"></image>
+</view> -->

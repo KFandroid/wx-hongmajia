@@ -1,0 +1,30 @@
+/* components/KLines/KLines.wxss */
+
+.container {
+  position: relative;
+  overflow: hidden;
+}
+
+.boost, .narrow, .left, .right {
+  width: 50rpx;
+  height: 50rpx;
+  position: absolute;
+  bottom: 5rpx;
+  padding: 5rpx;
+}
+
+.boost {
+  left: 15rpx;
+}
+
+.narrow {
+  left: 80rpx;
+}
+
+.left {
+  left: 145rpx;
+}
+
+.right {
+  left: 210rpx;
+}

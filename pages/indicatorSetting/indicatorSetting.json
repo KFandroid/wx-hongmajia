@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "指数设置",
+  "usingComponents": {
+    "popup": "../../components/popupNoCover/popupNoCover"
+  }
+}

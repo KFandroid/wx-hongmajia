@@ -1,0 +1,26 @@
+<!--pages/search/search.wxml-->
+<view >
+    <view class="search-container flex-box">
+        <view class="input-container col-10-8">
+            <input bindinput="searchStocks" placeholder="请输入股票代码/名称/简拼" class="stock-input" />
+        </view>
+        <navigator open-type="navigateBack" delta="1" class="btn btn-cancel col-10-2">
+            取消
+        </navigator>
+    </view>
+    <view class="stock-list">
+        <block wx:for="{{searchList}}" wx:key="{{index}}">
+            <view wx:key="{{item.stockCode}}" bindtap="navigateToStockInfo" data-stock="{{item}}" class="flex-box stock-info-container">
+                <view class="col-10-2 organization flex-box">
+                    <text class="text">{{item.market}}</text>
+                </view>
+                <view class="col-10-4 flex-box">
+                    <view >{{item.stockCode}}</view>
+                </view>
+                <view class="col-10-4 flex-box">
+                    <view >{{item.stockName}}</view>
+                </view>
+            </view>
+        </block>
+    </view>
+</view>

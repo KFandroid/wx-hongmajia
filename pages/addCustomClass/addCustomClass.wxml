@@ -1,0 +1,35 @@
+<!--pages/addCustomClass/addCustomClass.wxml-->
+<view class="child">
+  <view class="childTitle">
+    自选股板块编辑
+    <view class="btn_add" bindtap='showPopup'>新增</view>
+  </view>
+  <view class="table_header">
+    <view class="item name">自选股板块名称</view>
+    <view class="item">数量</view>
+    <view class="item">删除</view>
+    <view class="item">编辑</view>
+  </view>
+  <view class="table_row" wx:for="{{blocklists}}" wx:key="{{index}}">
+    <view class="item name">{{item.name}}</view>
+    <view class="item">{{counts[index]}}</view>
+    <view class="item">
+      <image wx:if="{{item.name=='自选股'}}" src="../../utils/images/delete_grey.png" style='max-width: 32rpx; height: 32rpx;' mode="aspectFit"></image>
+      <image bindtap='deleteItem' data-index="{{index}}" wx:else src="../../utils/images/delete.png" style='max-width: 32rpx; height: 32rpx;' mode="aspectFit"></image>
+    </view>
+    <view class="item">
+      <image wx:if="{{item.name=='自选股'}}" src="../../utils/images/edit_grey.png" style='max-width: 32rpx; height: 32rpx;' mode="aspectFit"></image>
+      <image bindtap='openEditPop' data-index="{{index}}" wx:else src="../../utils/images/edit.png" style='max-width: 32rpx; height: 32rpx;' mode="aspectFit"></image>
+    </view>
+  </view>
+</view>
+<popup id='popup' title='添加自选股板块' btn_no='取消' btn_ok='确定' bind:no="closePop1" bind:ok="addCustom">
+  <view slot="content">
+    <input class="input_name" maxlength="10" value='{{customName}}' bindinput="nameInput"></input>
+  </view>
+</popup>
+<popup id='popup2' title='编辑自选股板块' btn_no='取消' btn_ok='确定' bind:no="closePop2" bind:ok="editCustom">
+  <view slot="content">
+    <input class="input_name" maxlength="10" value='{{customName}}' bindinput="nameInput"></input>
+  </view>
+</popup>

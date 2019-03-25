@@ -1,0 +1,6 @@
+<!--components/pagination/pagination.wxml-->
+<view class="pagination-container" style='height: {{heightNum}}rpx;'> 
+  <view class='pageBtn' bindtap='pageUp' hidden="{{currentPage === 1}}">上一页</view>
+  <text>{{currentPage}}/{{totalPage}}页</text>
+  <view class='pageBtn' bindtap='pageDown' hidden="{{currentPage === totalPage}}">下一页</view>
+</view>

@@ -1,0 +1,140 @@
+/* pages/stockExceptionItem/stockExceptionItem.wxss */
+
+@import "../../utils/css/column.wxss";
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.title {
+  width: 100%;
+  font-size: 26rpx;
+  /* font-weight: bold; */
+  border-bottom: 1rpx solid gray;
+  line-height: 60rpx;
+  /* position: sticky;
+  top: 0;
+  left: 0; */
+  background-color: #fff;
+  /* z-index: 99; */
+  padding-left: 10rpx;
+  box-sizing: border-box;
+  height: 60rpx;
+}
+
+.flex-box {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.flex-cell {
+  line-height: 8vh;
+  height: 8vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 24rpx;
+  border-bottom: 2rpx solid gray;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-2-row {
+  flex-direction: column;
+}
+
+.flex-left {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.flex-right {
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.flex-2-row text {
+  height: 38rpx;
+  line-height: 38rpx;
+}
+
+.flex-2-row t {
+  height: 38rpx;
+  line-height: 38rpx;
+}
+
+.date-cell {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.date-cell .date {
+  line-height: 40rpx;
+  height: 40rpx;
+  /* margin-right: 20rpx; */
+}
+
+.date-cell .time {
+  line-height: 10rpx;
+  display: block;
+  height: 20rpx;
+  margin-right: 20rpx;
+}
+
+.thead {
+  /* position: sticky; */
+  background-color: #fff;
+  /* z-index: 99; */
+  /* top: 60rpx; */
+  height: 55rpx;
+  border-bottom: 1rpx solid gray;
+}
+
+.flex-2-row {
+  flex-direction: column;
+}
+
+.flex-cell .btn {
+  height: 50%;
+  width: 100%;
+  padding-left: 24rpx;
+}
+
+.flex-title {
+  top: 0;
+}
+
+.scrollView {
+  flex: 1;
+  overflow: auto;
+}
+
+.pagination-container {
+  display: flex;
+  height: 60rpx;
+  font-size: 24rpx;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  background-color: #fff;
+  border-top: 1rpx solid gray;
+}
+
+.pageBtn {
+  color: rgb(90, 90, 230);
+}

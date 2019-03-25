@@ -1,0 +1,65 @@
+/* components/monitor/monitor.wxss */
+
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 24rpx;
+  line-height: 55rpx;
+  border-bottom: 1rpx solid gray;
+  position: relative;
+}
+
+.table {
+  width: 100%;
+  clear: both;
+  box-sizing: border-box;
+  flex: 1;
+  overflow: auto;
+}
+
+.tr {
+  width: 100%;
+  clear: both;
+  height: 55rpx;
+}
+
+.td {
+  width: 20%;
+  float: left;
+  font-size: 24rpx;
+  text-align: center;
+  height: 55rpx;
+  line-height: 55rpx;
+  border-bottom: 1rpx solid gray;
+  box-sizing: border-box;
+}
+
+.td.blue {
+  color: #169bd5;
+}
+
+.pagination-container {
+  display: flex;
+  height: 60rpx;
+  font-size: 24rpx;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  border-top: 1rpx solid gray;
+}
+
+.pageBtn {
+  color: rgb(90, 90, 230);
+}
+
+.bdt {
+  border-top: 1rpx solid gray;
+}
+
+.bdt .td {
+  border-bottom: 0;
+}

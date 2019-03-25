@@ -1,0 +1,38 @@
+<!-- components/stockInfo/stockInfo.wxml -->
+<view class="stock-info flex-box">
+  <view class="flex-cell col-16-3 flex-2-row">
+    <text>{{stockInfo.name}}</text>
+    <text>{{stockInfo.stockNo}}</text>
+  </view>
+  <view class="flex-cell col-16-2 flex-2-row">
+    <text>{{stockInfo.current}}</text>
+    <text>{{stockInfo.rise}}%</text>
+  </view>
+  <view class="flex-cell col-16-3 flex-2-row">
+    <text>高{{stockInfo.high}}</text>
+    <text>低{{stockInfo.low}}</text>
+  </view>
+  <view class="flex-cell col-16-3 flex-2-row">
+    <text>开{{stockInfo.open}}</text>
+    <text>收{{stockInfo.close}}</text>
+  </view>
+  <view class="flex-cell col-16-3 flex-2-row">
+    <text>量{{stockInfo.hand}}</text>
+    <text>额{{stockInfo.volume}}</text>
+  </view>
+  <view class="flex-cell col-16-2 flex-2-row">
+    <navigator url="../../pages/search/search" class="btn" bindtap="viewTap" style="height:50%; box-sizing:border-box;width:100%;border-bottom:2rpx solid gray;border-left:2rpx solid gray;padding-bottom:12rpx;padding-left:24rpx;">
+      <image src="../../utils/images/search.png" style='max-width: 50rpx; height: 34rpx;' mode="aspectFit"></image>
+    </navigator>
+    <view class="btn" bindtap="showPopup" style="height:50%; box-sizing:border-box;width:100%;border-left:2rpx solid gray;padding-bottom:12rpx;padding-left:24rpx;">
+      <image src="../../utils/images/add.png" style='max-width: 50rpx; height: 34rpx;' mode="aspectFit"></image>
+    </view>
+  </view>
+</view>
+<popup id='popup' title='添加自选股' btn_no='取消' btn_ok='确定' bind:no="closePop" bind:ok="addCustom">
+  <view slot="content">
+    <picker class="picker" bindchange="bindPickerChange" value="{{selectedId}}" range="{{selector}}" range-key="name">
+      <view class="picker_content">{{selector[selectedId].name}}</view>
+    </picker>
+  </view>
+</popup>

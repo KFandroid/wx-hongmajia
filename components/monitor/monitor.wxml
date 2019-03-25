@@ -1,0 +1,27 @@
+<!-- components/monitor/monitor.wxml -->
+<view class="container">
+  <view class="title">
+    【{{date}}】异动项目监控列表
+    <view class="tr bdt">
+      <view class="td">时间</view>
+      <view class="td">代码</view>
+      <view class="td">名称</view>
+      <view class="td">项目</view>
+      <view class="td">状态</view>
+    </view>
+  </view>
+  <view class="table">
+    <view class="tr" wx:for="{{data}}" wx:key="{{index}}" data-item="{{item}}" bindtap="updateStock">
+      <view class="td">{{item.time}}</view>
+      <view class="td">{{item.stockCode}}</view>
+      <view class="td">{{item.stockName}}</view>
+      <view class="td">{{item.cname}}</view>
+      <view class="td">{{item.type}}</view>
+    </view>
+  </view>
+  <view class="pagination-container" style='height: {{heightNum}}rpx;'>
+    <view class='pageBtn' bindtap='pageUp' hidden="{{currentPage === 1}}">上一页</view>
+    <text>{{currentPage}}/{{totalPage}}页</text>
+    <view class='pageBtn' bindtap='pageDown' hidden="{{currentPage === totalPage}}">下一页</view>
+  </view>
+</view>

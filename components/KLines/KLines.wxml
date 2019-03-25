@@ -1,0 +1,4 @@
+<!-- components/KLines/KLines.wxml -->
+<view style="width: {{width}}px; height: {{height}}px;" class="container">
+  <canvas wx:if="{{kLinesData}}" bindtouchstart="longTapMove" style="width: {{width}}px; height: {{height}}px;" canvas-id="myCanvas" id="myCanvas"></canvas>
+</view>

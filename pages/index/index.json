@@ -1,0 +1,29 @@
+{
+  "disableScroll": true,
+  "usingComponents": {
+    "stock-info": "../../components/stockInfo/stockInfo",
+    "agent-info": "../../components/agentInfo/agentInfo",
+    "data-bank": "../../components/dataBank/dataBank",
+    "agent-detail": "../../components/agentDetail/agentDetail",
+    "bottom-chart": "../../components/bottomChart/bottomChart",
+    "diagram": "../../components/diagram/diagram",
+    "volumeLines": "../../components/volumeLines/volumeLines",
+    "stock-deal": "../../components/stockDeal/stockDeal",
+    "popup": "../../components/popup/popup",
+    "KLines": "../../components/KLines/KLines",
+    "target-graph": "../../components/targetGraph/targetGraph",
+    "data-info-graph": "../../components/dataInfoGraph/dataInfoGraph",
+    "lhb-target-graph": "../../components/lhbTargetGraph/lhbTargetGraph",
+    "lhb-stock-target-graph": "../../components/lhbStockTargetGraph/lhbStockTargetGraph",
+    "stock-target-graph": "../../components/stockTargetGraph/stockTargetGraph",
+    "bar": "../../components/bar/bar",
+    "indicator": "../../components/indicator/indicator",
+    "component-indexSearch": "../../components/indexSearch/indexSearch",
+    "component-stockDetail": "../../components/stockDetail/stockDetail",
+    "component-bestSelect": "../../components/bestSelect/bestSelect",
+    "component-monitor": "../../components/monitor/monitor",
+    "component-history": "../../components/history/history",
+    "component-lhbDetail": "../../components/lhbDetail/lhbDetail",
+    "component-optionalStock": "../../components/optionalStock/optionalStock"
+  }
+}

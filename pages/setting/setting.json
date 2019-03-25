@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "K线设置",
+  "usingComponents": {
+    "popup": "../../components/popupNoCover/popupNoCover"
+  }
+}

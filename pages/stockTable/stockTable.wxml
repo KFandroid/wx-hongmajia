@@ -1,0 +1,66 @@
+<!--pages/stockTable/stockTable.wxml-->
+<!-- <import src="../../tmpl/view.wxml"/> -->
+<wxs module="m1">
+  var isCurrentSortItem = function(item, currentSortItem, sortCode){
+    if(item === currentSortItem) {
+    if(sortCode[3] === '0') {
+        return 'order'
+    } else {
+        return 'reverse'
+    }
+
+    } else {
+    return ''
+    }
+  }
+  module.exports.isCurrentSortItem = isCurrentSortItem;
+</wxs>
+<view>
+  <!-- <template is="test" data="{{itemName}}"/> -->
+  <view class="secondary-title">
+    <view class="title">【{{itemName}}】异动【{{dateFlag}}】交易明细</view>
+    <!-- <view class="btn">
+      <image src="../../utils/images/menu.png" style='max-width: 60rpx; height: 68rpx;' mode="aspectFit"></image>
+    </view> -->
+  </view>
+  <view class="detail-title">
+    <text>{{date}}排序【{{sortItem}}】 第{{page}}页{{pageNum * (page - 1) + 1}}-{{pageNum * page}}名 共{{totalPage}}页</text>
+  </view>
+  <view class="flex-box flex-column">
+    <view class="flex-row thead">
+      <text class="flex-cell flex-row col-16-2">序</text>
+      <view class="flex-cell flex-row flex-2-row col-16-3 flex-left">
+        <text data-sort="002" bindtap="changeSort" class="{{m1.isCurrentSortItem('name', currentSortItem, sortCode)}}">名称</text>
+        <text data-sort="001" bindtap="changeSort" class="{{m1.isCurrentSortItem('code', currentSortItem, sortCode)}}">代码</text>
+      </view>
+      <view class="flex-cell flex-row col-16-3 flex-2-row flex-right">
+        <text data-sort="003" bindtap="changeSort" class="{{m1.isCurrentSortItem('price', currentSortItem, sortCode)}}">价格</text>
+        <text data-sort="004" bindtap="changeSort" class="{{m1.isCurrentSortItem('rise', currentSortItem, sortCode)}}">涨幅</text>
+      </view>
+      <text class="{{m1.isCurrentSortItem('time', currentSortItem, sortCode)}} flex-cell flex-row col-16-3 flex-right" data-sort="005" wx:if="{{date == today}}" bindtap="changeSort">更新时间</text>
+      <text class="{{m1.isCurrentSortItem('hand', currentSortItem, sortCode)}} flex-cell flex-row col-16-3 flex-right" data-sort="006" bindtap="changeSort" wx:else>成交量</text>
+      <text class="{{m1.isCurrentSortItem('key', currentSortItem, sortCode)}} last flex-cell flex-row col-16-5" data-sort="007" bindtap="changeSort">关键值</text>
+    </view>
+  </view>
+  <scroll-view class="scrollView" scroll-y="true" style='height: {{scrollHeight}}px;'>
+    <view class="flex-box flex-column">
+    <block  wx:for="{{data}}" wx:key="{{item.name}}" wx:for-item="item">
+      <view class="flex-row" bindtap="navigateToStock" data-item="{{item}}">
+      <text class="flex-cell flex-row col-16-2">{{index + 1}}</text>
+      <view class="flex-cell flex-row col-16-3 flex-2-row flex-left">
+        <text>{{item.stockName}}</text>
+        <text>{{item.stockNo}}</text>  
+      </view>
+      <view class="flex-cell flex-row col-16-3 flex-2-row flex-right">
+        <text>{{item.lastTrade}}</text>
+        <text>{{item.rise}}%</text>
+      </view>
+      <text class="flex-cell flex-row col-16-3 flex-right" wx:if="{{date == today}}">{{item.updateTime}}</text>
+      <text class="flex-cell flex-row col-16-3 flex-right" wx:else>{{item.hand}}</text>
+      <text class="flex-cell flex-row col-16-5 flex-right" style='padding-right:20rpx;'>{{item.keyValue}}</text>
+    </view>
+    </block>
+  </view>
+  </scroll-view>
+  <pagination bindpageup="pageUp" bindpagedown="pageDown" currentPage="{{page}}" totalPage="{{totalPage}}"></pagination>
+</view>

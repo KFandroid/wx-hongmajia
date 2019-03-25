@@ -1,0 +1,70 @@
+<!--components/targetGraph/targetGraph.wxml-->
+<wxs module="m1">
+     var isSelected = function(isSelected) {
+    
+    if (isSelected) {
+      return '../../utils/images/checked.png'
+    } else {
+      return '../../utils/images/unchecked.png'
+    }
+  }
+  var abs = function(num) {
+      if(num === '' || num === undefined) {
+          return ''
+      }
+      
+    return Math.abs(num)
+  }
+  var isHide = function(data) {
+      if(data.length === 0)
+      return 'hide'
+  }
+  module.exports.abs = abs
+  module.exports.isSelected = isSelected
+  module.exports.isHide = isHide
+</wxs>
+<view class="cover">
+<view class="main-title">
+<view class="date">{{showData[0].currentInfo.t}}</view>
+<view class="btn" bindtap="openSetting">指标选项</view>
+</view>
+<block wx:for="{{showData}}" wx:key="{{index}}">
+   <view class="second-title">
+    <view>{{item.info.title}}</view>
+    <view>{{item.info.title1}}</view>
+    </view>
+    <view class="bar">
+      <bar
+        height="{{barGraphHeight}}"
+        width="{{width}}"
+        type="single"
+        minNum="0"
+        maxNum="50"
+        rectWidth="{{rectWidth}}"
+        data="{{item.data}}"
+        rectInterval="{{rectInterval}}"></bar>
+    </view>
+    
+</block>
+<popup id='popup' 
+title='设置' 
+btn_no='取消' 
+btn_ok='确定' 
+bind:no="settingDialogNo"
+wx:if="{{popUpTime === 1}}" 
+bind:ok="settingDialogYes">
+    <cover-view slot="content">
+    <cover-view class="checkbox" wx:for="{{settingItems}}" wx:key="{{index}}">
+
+        <cover-view data-index="{{index}}" class="label" bindtap='checkItem'>
+
+          <cover-image class="icon-img" src="{{m1.isSelected(item.checked)}}" />
+          <cover-view class="title">{{item.value}}</cover-view>
+        </cover-view>
+      </cover-view>
+      <cover-view class="error" wx:if="{{showError}}">
+          异动项目不可超过{{graphCount}}！
+      </cover-view>
+    </cover-view>
+</popup>  
+</view>

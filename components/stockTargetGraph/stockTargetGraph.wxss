@@ -1,0 +1,61 @@
+/* components/targetGraph/targetGraph.wxss */
+.cover{
+    overflow: auto;
+}
+.main-title {
+    font-size: 24rpx;
+    border-bottom: 2rpx solid gray;
+}
+.main-title:after{/*清除浮动*/
+    content: '';
+    display:block;
+    clear: both;
+}
+.main-title .date {
+    float: left;
+}
+.main-title .btn {
+    float: right;
+    border-left:2rpx solid gray;
+}
+.second-title{
+    font-size: 24rpx;
+    display: flex;
+    justify-content: flex-start;
+    /* border-top: 2rpx solid gray; */
+    border-bottom: 2rpx dashed gray;
+}
+.bar {
+    border-bottom: 2rpx solid gray;
+}
+.label {
+    display: flex;
+    justify-content: center;
+    height: 70rpx;
+  }
+  
+  .icon-img {
+    flex: 1;
+    height:40rpx;
+    line-height: 40rpx;
+    max-width: 40rpx;
+    /* position: relative; */
+  }
+  
+ .checkbox .title {
+    flex:1;
+    text-align: left;
+    padding-left: 60rpx;
+  }
+
+  .error {
+      color: red;
+  }
+
+  .hide {
+      display: none;
+  }
+
+  .second-title {
+      height: 32rpx;
+  }

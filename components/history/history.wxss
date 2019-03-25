@@ -1,0 +1,117 @@
+/* components/history/history.wxss */
+
+.container {
+  height: 100%;
+}
+
+.one {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 24rpx;
+  line-height: 72rpx;
+  border-bottom: 1rpx solid gray;
+  position: relative;
+}
+
+.table {
+  width: 100%;
+  clear: both;
+  box-sizing: border-box;
+  flex: 1;
+  overflow: auto;
+}
+
+.tr {
+  width: 100%;
+  clear: both;
+  height: 72rpx;
+}
+
+.td {
+  float: left;
+  font-size: 24rpx;
+  text-align: center;
+  height: 72rpx;
+  line-height: 60rpx;
+  border-bottom: 1rpx solid gray;
+  box-sizing: border-box;
+  padding: 6rpx;
+}
+
+.td text {
+  width: 100%;
+  display: block;
+}
+
+.td1 {
+  width: 35%;
+}
+
+.td2 {
+  width: 30%;
+  line-height: 35rpx;
+}
+
+.td3 {
+  width: 35%;
+  line-height: 35rpx;
+}
+
+.bdt {
+  border-top: 1rpx solid gray;
+}
+
+.bdt .td {
+  border-bottom: 0;
+}
+
+.td4 {
+  width: 10%;
+}
+
+.td5 {
+  width: 40%;
+  line-height: 35rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.td6 {
+  width: 25%;
+  line-height: 35rpx;
+}
+
+.td7 {
+  width: 25%;
+  line-height: 35rpx;
+}
+
+.close {
+  position: absolute;
+  width: 50rpx;
+  height: 55rpx;
+  text-align: center;
+  line-height: 55rpx;
+  color: gray;
+  font-size: 36rpx;
+  right: 0;
+  top: 0;
+}
+
+.two {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.table {
+  flex: 1;
+  overflow: auto;
+}

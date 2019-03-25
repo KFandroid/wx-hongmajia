@@ -1,0 +1,8 @@
+/* components/dataBank/dataBank.wxss */
+.row {
+    font-size:24rpx;
+    display: flex;
+
+}
+.row flex {
+}

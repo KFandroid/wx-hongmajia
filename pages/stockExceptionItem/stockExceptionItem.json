@@ -1,0 +1,10 @@
+{
+  "component": true,
+  "usingComponents": {
+    "stock-info": "../../components/stockInfo/stockInfo",
+    "date-section": "../../components/dateSection/dateSection",
+    "pagination": "../../components/pagination/pagination",
+    "head-menu": "../../components/headMenu/headMenu",
+    "popup": "../../components/popup/popup"
+  }
+}

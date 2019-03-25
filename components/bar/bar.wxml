@@ -1,0 +1,2 @@
+<!--components/bargraph/barGraph.wxml-->
+<canvas bindtouchstart="longTapMove" style="width: {{width}}px; height: {{height}}px;" canvas-id="bar" id="bar"></canvas>
