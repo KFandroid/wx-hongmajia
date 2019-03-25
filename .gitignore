@@ -1,0 +1,14 @@
+*/target
+.idea
+*.iml
+*/dist
+*/OutApp
+*/out
+*/coverage
+~*.*
+.~*
+
+node_modules/.npminstall.done
+npm-debug.log
+node_modules/
+.vscode/settings.json
