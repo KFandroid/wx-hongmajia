@@ -13,7 +13,7 @@ function getNumUnit(num) {
   
   switch (true) {
     case (numStringLength <= 4 ):
-      return intNum
+      return num
       break
     // case (numStringLength === 4):
     //   unit = '千'

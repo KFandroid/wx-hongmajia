@@ -228,7 +228,8 @@
          <data-info-graph
         selectIndex="{{selectIndex}}"
          wx:if="{{bottomIndex == 4}}" 
-         height="{{underViewHeight}}" 
+         height="{{underViewHeight}}"
+         lsData="{{infoLsData}}" 
          width="{{dealWidth - 3}}"></data-info-graph>
         <lhb-target-graph lsData="{{t133}}" selectIndex="{{selectIndex}}"
          wx:if="{{subSelect==12&&selectIndex==2 && bottomIndex == 2}}" height="{{underViewHeight}}" width="{{dealWidth - 3}}"></lhb-target-graph>

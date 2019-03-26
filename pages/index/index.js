@@ -1431,6 +1431,20 @@ Page({
           return val
         }
       })
+      storage.addFile({
+        type: '142',
+        changeCb: (data) => {
+          
+          this.setData({
+            infoLsData: data.data
+          })
+        },
+        createKey: () => {
+          let val = this.createKeyStr3(142, '000000', this.data.stockCode, true, 0, true)
+          
+          return val
+        }
+      })
     }
 
     this.data.storage = storage

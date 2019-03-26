@@ -165,10 +165,8 @@ Component({
       
       let realX = index * width + this.data.rectWidth / 2
       
-      this.setData({
-        showCrosshair: true,
-        crosshair: {x: realX}
-      })
+      this.data.showCrosshair = true
+      this.data.crosshair = {x: realX}
       this.draw()
     },
     clearCanvas() {
@@ -287,6 +285,7 @@ Component({
           break
           case 'supdown':
           let month = parseInt(element.t.slice(5, 7))
+          debugger
           if(PLAN_MONTH.indexOf(month) < 0 ) {
             color = '#9AFF9A'
           } else {

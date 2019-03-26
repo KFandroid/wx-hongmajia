@@ -1,5 +1,8 @@
 // components/targetGraph/targetGraph.js
 import EventBus from '../../utils/pubsub.js'
+import {
+  getNumUnit
+} from '../../utils/changeUnit.js'
 function dealTmpData(tempData, index) {
   let data = []
   for(let i = 0; i < tempData.length; i++) {
@@ -41,7 +44,8 @@ function dealTmpData(tempData, index) {
     }
     
     if(temp.data.length) {
-      temp.currentInfo = temp.data[index]
+      temp.currentInfo = Object.assign({}, temp.data[index]) 
+      temp.currentInfo.y1 = getNumUnit(temp.currentInfo.y1)
     }
     data.push(temp)
   }
@@ -103,25 +107,14 @@ Component({
     },
     lsData: {
       type: Array,
-      value: [
-        {t: '2017-03-31', gjj: '10', xjl: '12', jlr: '12', wfp: '19', zsr: '51'},
-        {t: '2017-06-30', gjj: '10', xjl: '12', jlr: '22', wfp: '19', zsr: '51'},
-        {t: '2017-09-30', gjj: '10', xjl: '12', jlr: '42', wfp: '19', zsr: '51'},
-        {t: '2017-12-31', gjj: '10', xjl: '12', jlr: '52', wfp: '19', zsr: '51'},
-        {t: '2018-03-31', gjj: '10', xjl: '12', jlr: '2', wfp: '19', zsr: '51'},
-        {t: '2018-06-30', gjj: '10', xjl: '12', jlr: '32', wfp: '19', zsr: '51'},
-        {t: '2018-09-30', gjj: '10', xjl: '12', jlr: '32', wfp: '19', zsr: '51'},
-        {t: '2018-12-31', gjj: '10', xjl: '12', jlr: '32', wfp: '19', zsr: '51'},
-        {t: '2019-01-31', gjj: '10', xjl: '12', jlr: '32', wfp: '19', zsr: '51'},
-        {t: '2019-03-31', gjj: '10', xjl: '12', jlr: '32', wfp: '19', zsr: '51'}
-      ],
+      value: [],
       observer(newData) {
         
         this.data.currentPage = parseInt(newData.page)
         if(Object.keys(newData).length === 0) {
           return 
         }
-        if(newData.gjj.length) {
+        if(newData.length) {
           this.processData()
         }
       }
@@ -169,41 +162,41 @@ Component({
     rectWidth: 9,
     rectInterval: 3,
     settingItems: [{
-      name: 'jlr', //净利润
-      key: 'jlr',
+      name: 'mgjlr', //净利润
+      key: 'mgjlr',
       checked: false,
       value: '每股净利润'
     }, {
-      name: 'xjl', //现金流
-      key: 'xjl',
+      name: 'mgxjl', //现金流
+      key: 'mgxjl',
       checked: false,
       value: '每股现金流'
     }, {
-      name: 'gjj',
-      key: 'gjj',
+      name: 'mggjj',
+      key: 'mggjj',
       checked: false,
       value: '每股公积金'
     }, {
-      name: 'wfp',
-      key: 'wfp',
+      name: 'mgwfp',
+      key: 'mgwfp',
       checked: false,
       value: '每股未分配'
     }, {
-      name: 'zsr',
-      key: 'zsr',
+      name: 'yyzsr',
+      key: 'yyzsr',
       value: '营业总收入'
     }],
     historyData: {
-      jlr: [], // 净利润
-      xjl: [], // 现金流
-      gjj: [], // 每股公积金
-      wfp: [], // 每股未分配
-      zsr: [], // 营业总收入
+      mgjlr: [], // 净利润
+      mgxjl: [], // 现金流
+      mggjj: [], // 每股公积金
+      mgwfp: [], // 每股未分配
+      yyzsr: [], // 营业总收入
     },
     t: '',
     kDateArr: [],
     kDate: null,
-    sortKey: ['jlr', 'xjl', 'gjj', 'wfp', 'zsr'],
+    sortKey: ['mgjlr', 'mgxjl', 'mggjj', 'mgwfp', 'yyzsr'],
   },
   attached() {
     EventBus.on('movecrosshair.data', this.moveCrosshair.bind(this))
@@ -358,7 +351,7 @@ Component({
         graphCount
       })
       let allData = {
-        jlr: {
+        mgjlr: {
           mode: "supdown",
           info: {
             title:'每股净利润',
@@ -367,7 +360,7 @@ Component({
           },
           data: []
         }, // 缺口
-        xjl: {
+        mgxjl: {
           mode: "normal",
           info: {
             title: '每股现金流',
@@ -376,8 +369,8 @@ Component({
           },
           data: []
         }, // 涨跌
-        gjj: {
-          mode: "normal",
+        mggjj: {
+          mode: "updown",
           info: {
             title: '每股公积金',
             title1: '',
@@ -385,7 +378,7 @@ Component({
           },
           data: []
         }, // 竞价
-        wfp: {
+        mgwfp: {
           mode: "normal",
           info: {
             title: '每股未分配',
@@ -394,8 +387,8 @@ Component({
           },
           data: []
         }, // 开盘
-        zsr: {
-          mode: "normal",
+        yyzsr: {
+          mode: "supdown",
           info: {
             title: '营业总收入',
             title1: '',
@@ -429,6 +422,21 @@ Component({
               y1: tempData[key],
               y2: calAnnual(tempData.t, tempData[key])
             })
+          } else if(allData[key].mode === 'updown') {
+            if(tempData[key] > 0 ) {
+              allData[key].data.push({
+                t: tempData.t,
+                y1: tempData[key],
+                y2: 0
+              })
+            } else {
+              allData[key].data.push({
+                t: tempData.t,
+                y1: 0,
+                y2: tempData[key]
+              })
+            }
+            
           } else {
             allData[key].data.push({
               t: tempData.t,

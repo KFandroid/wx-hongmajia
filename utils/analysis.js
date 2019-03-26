@@ -1328,6 +1328,49 @@ const toTable141 = (stockTableView) => {
   return data
 }
 
+const toTable142 = function(dataView) {
+  let data = {}
+  data.type = '142'
+  // debugger
+  data.code = addZero(dataView.getInt16(2), 3) + addZero(dataView.getInt16(4), 3)
+  data.stockCode = addZero(dataView.getInt32(6), 6)
+  data.timestamp = addZero(dataView.getInt32(10), 10)
+  data.date = addZero('', 8)
+  data.totalPage = addZero(dataView.getInt16(14), 3)
+  data.page = addZero(dataView.getInt16(16), 3)
+  data.sortCode = addZero('' + dataView.getInt16(18) + dataView.getInt16(20), 4)
+  data.data = []
+  let dataByteLength
+  dataByteLength = 60
+  let itemLength = Math.round((dataView.byteLength - 32) / dataByteLength)
+  for (let i = 0; i < itemLength; i++) {
+    let temp = {}
+    let strArr = []
+    for (let j = 0; j < 10; j++) {
+      strArr.push(dataView.getUint8(i * dataByteLength + j + 32))
+    }
+    temp.t = utf8ByteArrayToString(strArr).replace(/\u0000/g, "")
+    // temp.cno = addZero(dataView.getInt16(i * dataByteLength + 32), 0)
+    temp.flag = dataView.getInt16(10 + i * dataByteLength + 32)
+
+    let propertyArr = ['cqfz','gjj','jlr','jyxjl',
+                       'kzrcg','ldfz','ltag','wfplr',
+                       'yyzsr','zfz','zgb','zzc']
+    
+    for(let k = 0; k < propertyArr.length; k++) {
+      let index = 4 * k  + i * dataByteLength + 44
+      temp[propertyArr[k]] = dataView.getFloat32(index)
+    }
+    temp.mggjj = (temp.gjj / temp.zgb).toFixed(2)
+    temp.mgxjl = (temp.jyxjl / temp.zgb).toFixed(2)
+    temp.mgjlr = (temp.jlr / temp.zgb).toFixed(2)
+    temp.mgwfp = (temp.wfplr / temp.zgb).toFixed(2)
+    data.data.push(temp)
+  }
+  
+  return data
+}
+
 const toTable139 = (stockTableView) => {
   let data = {
     data: []
@@ -1474,6 +1517,9 @@ const analysisByte = function(buffer) {
       break
     case 141:
       return toTable141(dataView)
+      break
+    case 142:
+      return toTable142(dataView)  
       break
   }
 }
