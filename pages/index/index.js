@@ -693,7 +693,7 @@ Page({
           type = 'k30line'
           break
       }
-
+      // 根据是否是股票请求不同的数据
       if (!this.data.isStock) {
         storage.addFile({
           type: '129',
@@ -752,6 +752,18 @@ Page({
           }
         })
         storage.addFile({
+          type: '104',
+          changeCb: (data) => {
+            this.setData({
+              t102: data
+            })
+          },
+          createKey: () => {
+            let val = this.createKeyStr3(104, '000000', this.data.stockCode, true, 0, true)
+            return val
+          }
+        })
+        storage.addFile({
           type: '132',
           changeCb: (data) => {
             // 处理成当天项目，并传一个标识过去
@@ -780,6 +792,7 @@ Page({
           type: '112',
           intervalTime: 10000,
           changeCb: (data) => {
+            
             let averagePrice = 0
             let maxDeal = 0
             let beforeDeal = 0
@@ -857,6 +870,7 @@ Page({
               val = this.createKeyStr112(112, '000000', this.data.stockCode, true,
               app.globalData['a' + val.storage].data.length)
             }
+            
             return val
           }
         })
@@ -1635,6 +1649,7 @@ Page({
                 currentInfo: lastData
               })
             }
+            
             return tempData
           },
           createKey: () => {
@@ -1646,6 +1661,7 @@ Page({
               val = this.createKeyStr112(112, '000000', this.data.stockCode, true,
               app.globalData['a' + val.storage].data.length)
             }
+            
             return val
           }
         })
@@ -2391,16 +2407,9 @@ Page({
         type: '129',
         changeCb: (data) => {
           // 处理成按时间分割的各个项目
-
-          let itemArr = this.data.itemList
-
           this.setData({
             ydlsData: deal2FiveData(data.data, data.page)
           })
-
-          // this.setData({
-          //   k: data
-          // })
         },
         createKey: () => {
           let val = this.createKeyStr3(129, '000000', this.data.stockCode, true, 1, true)
@@ -2412,16 +2421,11 @@ Page({
         intervalTime: 11000,
         changeCb: (data) => {
           // 处理成当天项目，并传一个标识过去
-          // this.setData({
-          //   kLinesDataCurrent: data
-          // })
-          
           this.setData({
             ydCurrentData: deal2FiveData(data.data)
           })
         },
         createKey: () => {
-          
           let val = this.createKeyStr3(128, '000000', this.data.stockCode, true)
           return val
         }
@@ -2431,10 +2435,6 @@ Page({
         type: '131',
         intervalTime: 12000,
         changeCb: (data) => {
-          // 处理成当天项目，并传一个标识过去
-          // this.setData({
-          //   kLinesDataCurrent: data
-          // })
           this.setData({
             ydStockCurrentData: deal2StockData(data.data)
           })
