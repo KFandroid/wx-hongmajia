@@ -3665,13 +3665,16 @@ Component({
       }
       
       ctx.moveTo(data[startIndex].x, data[startIndex].y)
-      
+      let prevData = data[startIndex]
       for (let i = startIndex + 1, length = data.length; i < length; i++) {
         
-        if(data[i].dealA !== 0) {
+        if(data[i].dealA !== 0 && parseInt(data[i].price) !== 0) {
           ctx.lineTo(data[i].x, data[i].y)
+        } else if(parseInt(data[i].averagePrice) !== 0){
+          
+          ctx.lineTo(prevData.x, prevData.y)
         }
-        
+        prevData = data[i]
       }
 
       ctx.setStrokeStyle('blue')

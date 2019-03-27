@@ -285,7 +285,7 @@ Component({
           break
           case 'supdown':
           let month = parseInt(element.t.slice(5, 7))
-          debugger
+          
           if(PLAN_MONTH.indexOf(month) < 0 ) {
             color = '#9AFF9A'
           } else {

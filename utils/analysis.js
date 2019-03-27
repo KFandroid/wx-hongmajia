@@ -5,8 +5,7 @@ import {
   getNumUnit
 } from './changeUnit.js'
 import {
-  formatDate2,
-  formatSmallNumber
+  formatDate2
 } from './util.js'
 
 const addZero = function(code, zeroNum) {
@@ -198,8 +197,8 @@ const toTable112 = function(dataView) {
   data.stockCode = addZero(dataView.getInt32(6), 6)
   data.timestamp = addZero(dataView.getInt32(10), 6)
   data.date = formatDate2(new Date(parseInt(data.timestamp) * 1000))
-  data.totalPage = addZero('', 3)
-  data.page = addZero('', 3)
+  data.totalPage = addZero(dataView.getInt16(14), 3)
+  data.page = addZero(dataView.getInt16(16), 3)
   data.sortCode = '0000'
   data.data = []
   let dataByteLength
@@ -361,6 +360,7 @@ const toTable116 = function(dataView) {
 const toTable117 = function(dataView) {
   const data = {}
   data.type = '117'
+  
   data.code = addZero(dataView.getInt16(2), 3) + addZero(dataView.getInt16(4), 3)
   data.stockCode = addZero(dataView.getInt32(6), 6)
   data.timestamp = addZero(dataView.getInt32(10), 6)
@@ -1331,7 +1331,7 @@ const toTable141 = (stockTableView) => {
 const toTable142 = function(dataView) {
   let data = {}
   data.type = '142'
-  // debugger
+  // 
   data.code = addZero(dataView.getInt16(2), 3) + addZero(dataView.getInt16(4), 3)
   data.stockCode = addZero(dataView.getInt32(6), 6)
   data.timestamp = addZero(dataView.getInt32(10), 10)

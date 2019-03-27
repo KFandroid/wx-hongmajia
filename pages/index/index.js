@@ -557,6 +557,52 @@ Page({
     this.setData({
       showDeal: !this.data.showDeal
     })
+    if(this.data.showDeal) {
+      this.data.storage.addFile({
+        type: '110',
+        changeCb: (data) => {
+          this.setData({
+            agentInfo: data
+          })
+        },
+        intervalTime: 10000,
+        createKey: () => {
+          let val = this.createKeyStr3(110, '000000', this.data.stockCode, true)
+          return val
+        }
+      })
+      this.data.storage.addFile({
+        type: '122',
+        intervalTime: 5000,
+        changeCb: (data) => {
+          for (let j = 0; j < data.data.length; j++) {
+            let flag = true
+            for (let i = 0; i < this.data.agentDetail.length; i++) {
+              if (this.data.agentDetail[i].time == data.data[j].time) {
+                this.data.agentDetail[i] = data.data[j]
+                flag = false
+              }
+            }
+            if (flag) {
+              this.data.agentDetail.push(data.data[j])
+            }
+          }
+          this.setData({
+            agentDetail: this.data.agentDetail,
+            stockPcp: data.pcp
+          })
+          data.data = this.data.agentDetail
+          return data
+        },
+        createKey: () => {
+          let val = this.createKeyStr(122, '000000', this.data.stockCode, true)
+          return val
+        }
+      })
+    } else {
+      this.data.storage.deleteFile(110)
+      this.data.storage.deleteFile(122)
+    }
     wx.setStorageSync('showDeal', this.data.showDeal)
     this.setView()
   },
@@ -868,7 +914,7 @@ Page({
             if(app.globalData['a' + val.storage]) {
               
               val = this.createKeyStr112(112, '000000', this.data.stockCode, true,
-              app.globalData['a' + val.storage].data.length)
+              app.globalData['a' + val.storage].totalPage)
             }
             
             return val
@@ -1224,11 +1270,6 @@ Page({
     }
   },
   onShow() {
-    if(app.globalData.token) {
-
-    } else {
-      this.getToken()
-    }
     if (!app.globalData.selectStock) {
       app.globalData.selectStock = wx.getStorageSync('selectStock')
     }
@@ -1673,7 +1714,7 @@ Page({
               
             if(app.globalData['a' + val.storage]) {
               val = this.createKeyStr112(112, '000000', this.data.stockCode, true,
-              app.globalData['a' + val.storage].data.length)
+              app.globalData['a' + val.storage].totalPage)
             }
             
             return val
@@ -1712,6 +1753,7 @@ Page({
         storage.addFile({
           type: '117',
           changeCb: (data) => {
+            
             this.setData({
               rfArr: data.data
             })
@@ -1775,11 +1817,13 @@ Page({
         storage.addFile({
           type: '117',
           changeCb: (data) => {
+            
             this.setData({
               rfArr: data.data
             })
           },
           createKey: () => {
+            
             let val = this.createKeyStr(117, '000000', this.data.stockCode, true)
             return val
           }
@@ -2326,7 +2370,7 @@ Page({
           agentInfo: data
         })
       },
-      intervalTime: 17000,
+      intervalTime: 10000,
       createKey: () => {
         let val = this.createKeyStr3(110, '000000', this.data.stockCode, true)
         return val

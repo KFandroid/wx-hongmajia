@@ -73,48 +73,4 @@ export const connect = function(cb) { // 定义一个方法
   wx.onSocketMessage(function(res) { // 监听WebSocket接受到服务器的消息事件。
     cb(analysisByte(res.data))
   })
-
-  // wx.onSocketError(function(res) {
-  //   // 监听WebSocket错误。
-
-  //   if (reconnectHandle) {
-  //     clearInterval(reconnectHandle)
-  //   }
-  //   reconnectHandle = setInterval(() => {
-  //     wx.closeSocket()
-  //   if(connectCount !== MAX_CONNECTION_NUM) {
-  //     getApp().globalData.socketTask = wx.connectSocket({ // 创建一个 WebSocket 连接
-  //       url: url,
-  //       fail(err) {
-  //         if (err) {
-  //           connectCount++
-  //           app.globalData.socketConnectFail = true // 定义一个全局变量，当链接失败时改变变量的值
-  //         }
-  //       }
-  //     })
-  //   }
-  //   }, 10000)
-
-  // })
-
-  // wx.onSocketClose(function(res) { // 监听WebSocket关闭。
-
-  //   if (reconnectHandle) {
-  //     clearInterval(reconnectHandle)
-  //   }
-  //   reconnectHandle = setInterval(() => {
-  //     wx.closeSocket()
-  //     if(connectCount !== MAX_CONNECTION_NUM) {
-  //     getApp().globalData.socketTask = wx.connectSocket({ // 创建一个 WebSocket 连接
-  //       url: url,
-  //       fail(err) {
-  //         if (err) {
-  //           connectCount++
-  //           app.globalData.socketConnectFail = true // 定义一个全局变量，当链接失败时改变变量的值
-  //         }
-  //       }
-  //     })
-  //   }
-  //   }, 3000)
-  // })
 };
