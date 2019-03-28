@@ -45,24 +45,6 @@ App({
       }
     }
 
-    // t109为日历文件
-    // let key = addZeroAfter('a109', 31)
-    // let t109 = wx.getStorageSync(key).data
-    // if(t019 != '') {
-    //   this.globalData.a109 = 
-    // }
-    // let sizeLevel = wx.getStorageSync('kSizeLevel')
-    // if (sizeLevel !== '') {
-    //   this.globalData.kSizeLevel = sizeLevel
-    // } else {
-    //   this.globalData.kSizeLevel = 2
-    // }
-    // let kDate = getStorage('kDate', null)
-    // this.globalData.kDate = kDate
-    // let kDateArr = getStorage('kDateArr', [])
-    // this.globalData.kDateArr = kDateArr
-    // let k105 = getStorage('k105000000000000000000000000000', [])
-    // this.globalData.k105 = this.globalData.a105  = k105
     let settingItem = wx.getStorageSync('settingItem')
     if (settingItem) {
       this.globalData.settingItem = settingItem

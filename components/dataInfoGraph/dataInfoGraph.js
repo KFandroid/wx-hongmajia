@@ -167,6 +167,16 @@ Component({
       checked: false,
       value: '每股净利润'
     }, {
+      name: 'kzrcg', 
+      key: 'kzrcg',
+      checked: false,
+      value: '控制人持股'
+    }, {
+      name: 'zfz', 
+      key: 'zfz',
+      checked: false,
+      value: '总负债'
+    }, {
       name: 'mgxjl', //现金流
       key: 'mgxjl',
       checked: false,
@@ -185,18 +195,51 @@ Component({
       name: 'yyzsr',
       key: 'yyzsr',
       value: '营业总收入'
+    }, {
+      name: 'cqfz',
+      key: 'cqfz',
+      value: '长期负债'
+    }, {
+      name: 'ldfz',
+      key: 'ldfz',
+      value: '流动负债'
+    }, {
+      name: 'ltag',
+      key: 'ltag',
+      value: '流通A股'
+    }, {
+      name: 'wfplr',
+      key: 'wfplr',
+      value: '未分配利润'
+    }, {
+      name: 'zgb',
+      key: 'zgb',
+      value: '总股本'
+    }, {
+      name: 'zzc',
+      key: 'zzc',
+      value: '总资产'
     }],
     historyData: {
       mgjlr: [], // 净利润
       mgxjl: [], // 现金流
+      kzrcg: [],
+      zgb: [],
+      ldfz: [],
+      zfz: [],
+      zzc: [],
+      ltag: [],
+      wfplr: [],
       mggjj: [], // 每股公积金
       mgwfp: [], // 每股未分配
       yyzsr: [], // 营业总收入
+      cqfz: [] // 长期负债
     },
     t: '',
     kDateArr: [],
     kDate: null,
-    sortKey: ['mgjlr', 'mgxjl', 'mggjj', 'mgwfp', 'yyzsr'],
+    sortKey: ['mgjlr', 'kzrcg', 'zfz', 'zgb', 'zzc',
+     'ldfz', 'ltag', 'wfplr', 'mgxjl', 'mggjj', 'mgwfp', 'yyzsr', 'cqfz'],
   },
   attached() {
     EventBus.on('movecrosshair.data', this.moveCrosshair.bind(this))
@@ -360,6 +403,60 @@ Component({
           },
           data: []
         }, // 缺口
+        kzrcg: {
+          mode: "normal",
+          info: {
+            title:'控制人持股',
+            title1:'',
+            title2: ''
+          },
+          data: []
+        }, // 控制人持股
+        zfz: {
+          mode: "normal",
+          info: {
+            title:'总负债',
+            title1:'',
+            title2: ''
+          },
+          data: []
+        }, 
+        zzc: {
+          mode: "normal",
+          info: {
+            title:'总资产',
+            title1:'',
+            title2: ''
+          },
+          data: []
+        }, 
+        ldfz: {
+          mode: "normal",
+          info: {
+            title:'流动负债',
+            title1:'',
+            title2: ''
+          },
+          data: []
+        }, // 控制人持股
+        ltag: {
+          mode: "normal",
+          info: {
+            title:'流通A股',
+            title1:'',
+            title2: ''
+          },
+          data: []
+        }, // 控制人持股
+        wfplr: {
+          mode: "normal",
+          info: {
+            title:'未分配利润',
+            title1:'',
+            title2: ''
+          },
+          data: []
+        },
         mgxjl: {
           mode: "normal",
           info: {
@@ -387,6 +484,15 @@ Component({
           },
           data: []
         }, // 开盘
+        cqfz: {
+          mode: "normal",
+          info: {
+            title: '长期负债',
+            title1: '',
+            title2: ''
+          },
+          data: []
+        }, // 开盘
         yyzsr: {
           mode: "supdown",
           info: {
@@ -396,6 +502,15 @@ Component({
           },
           data: []
         }, // 尾盘
+        zgb: {
+          mode: "normal",
+          info: {
+            title: '总股本',
+            title1: '',
+            title2: ''
+          },
+          data: []
+        }
       }
       
       let sortKey = this.data.sortKey   

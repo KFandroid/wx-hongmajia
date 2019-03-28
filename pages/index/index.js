@@ -838,7 +838,9 @@ Page({
           type: '112',
           intervalTime: 10000,
           changeCb: (data) => {
-            
+            if(!data.data.length) {
+              return
+            }
             let averagePrice = 0
             let maxDeal = 0
             let beforeDeal = 0
@@ -889,6 +891,7 @@ Page({
             })
 
             if (!this.data.showCurrentInfo) {
+              
               let lastData = Object.assign({}, tempData.data[tempData.data.length - 1])
               lastData.date = lastData.date.replace(/(\d{2})(\d{2})/, "$1:$2")
               lastData.price = getNumUnit(lastData.price)
@@ -901,7 +904,7 @@ Page({
                 currentInfo: lastData
               })
             }
-
+            
             return tempData
           },
           createKey: () => {
@@ -1648,7 +1651,9 @@ Page({
             let beforeDealN = 0
             let count = 0
             let tempData = Object.assign({}, data)
-            
+            if(!data.data.length) {
+              return
+            }
             tempData.data = [].concat(this.data.drawData.data)
             if (tempData.data.length === 0) {
               tempData.data = tempData.data.concat(data.data)

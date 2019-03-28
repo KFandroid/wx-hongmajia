@@ -3204,19 +3204,23 @@ Component({
         }
         
         let temp = {}
-        
+        let initTimeTable = []
+        // 清空原先数据
+        for(let i = 0; i < timeTable.length; i++) {
+          initTimeTable.push(Object.assign({}, timeTable[i]))
+        }
+        // 重新赋值
         for(let i = 0; i < newData.data.length; i++) {
           temp = newData.data[i]
-          for(let j = 0; j < timeTable.length; j++) {
-            
-            if(temp.date === timeTable[j].date) {
-              timeTable[j] = Object.assign({}, timeTable[j], temp)
+          for(let j = 0; j < initTimeTable.length; j++) {
+            if(temp.date === initTimeTable[j].date) {
+              initTimeTable[j] = Object.assign({}, initTimeTable[j], temp)
               break
             }
           }
         }
         this.data.data = newData
-        this.data.data.data = timeTable
+        this.data.data.data = initTimeTable
         
         this.doDraw()
       }
@@ -3670,11 +3674,12 @@ Component({
         
         if(data[i].dealA !== 0 && parseInt(data[i].price) !== 0) {
           ctx.lineTo(data[i].x, data[i].y)
-        } else if(parseInt(data[i].averagePrice) !== 0){
+          prevData = data[i]
+        } else if(data[i].averageDa !== 0){
           
-          ctx.lineTo(prevData.x, prevData.y)
+          ctx.lineTo(data[i].x, prevData.y)
         }
-        prevData = data[i]
+        
       }
 
       ctx.setStrokeStyle('blue')
