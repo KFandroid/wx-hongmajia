@@ -26,6 +26,14 @@ Page({
    */
   onLoad: function (options) {
     this.data.stockList = app.globalData.a105.data
+    app.globalData.stockList = app.globalData.a105.data
+    let stockList = []
+    for(let i = 0; i < app.globalData.stockList.length; i++) {
+      if(app.globalData.stockList[i].code.slice(0, 2) === '06') {
+        stockList.push(app.globalData.stockList[i])
+      }
+    }
+    console.log(JSON.stringify(stockList))
   },
   navigateToStockInfo: function (e) {
     app.globalData.stockList = app.globalData.a105.data

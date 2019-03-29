@@ -111,7 +111,7 @@
         id="diagram" height="{{diagramHeight}}" 
         drawData="{{drawData}}"
         isStock="{{isStock}}"
-        width="{{diagramWidth}}" 
+        width="{{dealWidth}}" 
         kSettingItem="{{kSettingItem}}"></diagram>
       </view>
       <view class="left-menu-bar flex-box">
