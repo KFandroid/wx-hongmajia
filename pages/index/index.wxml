@@ -148,7 +148,11 @@
          kLinesDataCurrent="{{kLinesDataCurrent}}" 
          rfArr="{{rfArr}}" 
          kSettingItem="{{kSettingItem}}"></volumeLines>
-        <stock-deal class="{{m1.isHide(selectIndex, 1)}}" bind:showcurrentInfo="showCurrentInfo" bind:drawcrosshair="drawCrossHair2" id='stockDeal' height="{{dealHeight}}" drawData="{{drawData}}" width="{{dealWidth}}" kSettingItem="{{kSettingItem}}"></stock-deal>
+        <stock-deal class="{{m1.isHide(selectIndex, 1)}}" 
+        bind:showcurrentInfo="showCurrentInfo"
+         bind:drawcrosshair="drawCrossHair2" 
+         id='stockDeal' height="{{dealHeight}}" 
+         drawData="{{drawData}}" width="{{dealWidth}}" kSettingItem="{{kSettingItem}}"></stock-deal>
       </view>
     </view>
     <view class="right col-24-8" wx:if="{{showDeal}}">

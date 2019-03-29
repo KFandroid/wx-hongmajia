@@ -33,7 +33,9 @@ Component({
       type: Object,
       value: {},
       observer(newData, oldData) {
+        
         this.data.data = newData
+        
         if (Object.keys(this.data.data).length !== 0) {
           this.preprocess()
 
@@ -157,6 +159,21 @@ Component({
       }
       return index
     },
+    transfer2TimeIndex(time) {
+      let start = this.data.start
+      let date = []
+
+      let dataDate = parseInt(time)
+      date[0] = Math.floor(dataDate / 100)
+
+      date[1] = dataDate % 100
+
+      let index = (date[0] - start[0]) * 60 + (date[1] - start[1])
+      if (date[0] >= 13) {
+        index = index - 90
+      }
+      return index
+    },
     drawAverageLine(ctx) {
       ctx.beginPath()  
       
@@ -231,9 +248,11 @@ Component({
       ctx.draw()
     },
     preprocess() {
-      let reactWidth = (this.data.xRange[1] - this.data.xRange[0]) / this.data.timeIndex
+      
+      let reactWidth = (this.data.xRange[1] - this.data.xRange[0]) / (this.data.timeIndex - 1)
       let gap = reactWidth
       this.data.gap = reactWidth
+      
       let data = this.data.data
 
 
@@ -309,14 +328,18 @@ Component({
         // ctx.setStrokeStyle('black')
         // ctx.strokeRect(data[i].x, data[i].y, this.data.gap, this.data.yRange[1] - data[i].y)
         // ctx.setStrokeStyle('black')
-
+        ctx.beginPath()
         if (data[i].dealPrice <= beforePrice) {
-          ctx.setFillStyle('green')
+          ctx.setStrokeStyle('green')
         } else {
-          ctx.setFillStyle('red')
+          ctx.setStrokeStyle('red')
         }
-        ctx.fillRect(data[i].x, data[i].y, this.data.gap, this.data.yRange[1] - data[i].y)
-
+        
+        ctx.moveTo(data[i].x, this.data.yRange[1])
+        ctx.lineTo(data[i].x, data[i].y)
+        // ctx.fillRect(data[i].x, data[i].y, 0.5, this.data.yRange[1] - data[i].y)
+        ctx.stroke()
+        ctx.closePath()
         beforePrice = data[i].dealPrice
       }
       // ctx.setStrokeStyle('orange')

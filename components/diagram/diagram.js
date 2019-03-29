@@ -3175,6 +3175,7 @@ Component({
       value: 200,
       observer(newData) {
         this.data.xRange = [0, newData]
+        
         let gap = (this.data.xRange[1] - this.data.xRange[0]) / (this.data.timeIndex - 1)
 
         this.data.gap = gap
@@ -3724,7 +3725,7 @@ Component({
     transfer2x(time) {
       let index = this.transfer2TimeIndex(time)
       let gap = this.data.gap
-
+      
       return gap * index
     }
   }
