@@ -160,7 +160,7 @@ Component({
     index: -1,
     showSetting: false,
     rectWidth: 5,
-    rectInterval: 1,
+    rectInterval: 3,
     settingItems: [{
       name: 'mgjlr', //净利润
       key: 'mgjlr',
