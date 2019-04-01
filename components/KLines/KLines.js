@@ -616,7 +616,7 @@ Component({
         let low = this.computeY(this.data.needData[i].low)
         let y1, y2
         let color = '#000'
-        if (this.data.needData[i].price > this.data.needData[i].open) {
+        if (parseFloat(this.data.needData[i].price) > parseFloat(this.data.needData[i].open)) {
           color = 'red'
           y1 = this.computeY(this.data.needData[i].price)
           y2 = this.computeY(this.data.needData[i].open)
