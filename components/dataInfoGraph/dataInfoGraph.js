@@ -159,8 +159,8 @@ Component({
     barGraphWidth: 240,
     index: -1,
     showSetting: false,
-    rectWidth: 9,
-    rectInterval: 3,
+    rectWidth: 5,
+    rectInterval: 1,
     settingItems: [{
       name: 'mgjlr', //净利润
       key: 'mgjlr',
