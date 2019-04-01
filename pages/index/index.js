@@ -1535,16 +1535,6 @@ Page({
         this.data.storage.observeFileChange(data.type, data)
       })
     })
-    
-    // connect((data) => {
-    //   this.data.storage.observeFileChange(data.type, data)
-    // })
-    // wx.onSocketOpen(() => { // 监听WebSocket连接打开事件。
-    //   this.data.storage.getFileData()
-    //   connect((data) => {
-    //     this.data.storage.observeFileChange(data.type, data)
-    //   })
-    // })
 
     this.settingHandler()
     this.initTabSelect()
@@ -1560,15 +1550,6 @@ Page({
         })
       }
     }
-    // this.setData({
-    //   popUpTime: 0
-    // })
-    // setTimeout(() => {
-    //   this.setData({
-    //     popUpTime: 1
-    //   })
-    //   this.popup = this.selectComponent("#popup")
-    // }, 5000)
   },
   getSubTableData() {
     let storage = this.data.storage
@@ -2342,8 +2323,12 @@ Page({
       app.globalData = Object.assign({}, app.globalData, data)
     }
     this.clearData()
-    this.data.storage.clearFile()
-
+    if (this.data.storage) {
+      this.data.storage.clearFile()
+    }
+    if(this.data.stockChanged) {
+      this.clearData()
+    }
 
 
     this.closeAllCrosshair()
@@ -2367,139 +2352,7 @@ Page({
         isStock: true
       })
     }
-    let storage = new WXStorage([{
-      type: '101',
-      intervalTime: 15000,
-      changeCb: (data) => {
-        this.setData({
-          t101: data
-        })
-      },
-      createKey: () => {
-        let val = this.createKeyStr2(101, '000000', '000000', true)
-        return val
-      }
-    }, {
-      type: '108',
-      changeCb: (data) => {
-        let stockInfo = {
-          current: data.data.current,
-          rise: data.data.rise,
-          high: data.data.high,
-          low: data.data.low,
-          close: data.data.close,
-          open: data.data.open,
-          hand: data.data.hand,
-          volume: data.data.volume
-        }
-        this.setData({
-          stockInfo: Object.assign({}, this.data.stockInfo, stockInfo)
-        })
-      },
-      intervalTime: 16000,
-      createKey: () => {
-        const TYPE = 108
-        let val = this.createKeyStr3(108, '000000', this.data.stockCode, true)
-        return val
-      }
-      // isCallMainBack: false
-    }, {
-      type: '110',
-      changeCb: (data) => {
-        this.setData({
-          agentInfo: data
-        })
-      },
-      intervalTime: 10000,
-      createKey: () => {
-        let val = this.createKeyStr3(110, '000000', this.data.stockCode, true)
-        return val
-      }
-    }, {
-      type: '122',
-      intervalTime: 5000,
-      changeCb: (data) => {
-        for (let j = 0; j < data.data.length; j++) {
-          let flag = true
-          for (let i = 0; i < this.data.agentDetail.length; i++) {
-            if (this.data.agentDetail[i].time == data.data[j].time) {
-              this.data.agentDetail[i] = data.data[j]
-              flag = false
-            }
-          }
-          if (flag) {
-            this.data.agentDetail.push(data.data[j])
-          }
-        }
-        this.setData({
-          agentDetail: this.data.agentDetail,
-          stockPcp: data.pcp
-        })
-        data.data = this.data.agentDetail
-        return data
-      },
-      createKey: () => {
-        let val = this.createKeyStr(122, '000000', this.data.stockCode, true)
-        return val
-      }
-    }, {
-      type: '117',
-      changeCb: (data) => {
-        this.setData({
-          rfArr: data.data
-        })
-      },
-      createKey: () => {
-
-        let val = this.createKeyStr(117, '000000', this.data.stockCode, true)
-        return val
-      }
-    }, {
-      type: '104',
-      changeCb: (data) => {
-        this.setData({
-          stockDetailData: data
-        })
-        wx.setStorageSync('page104' + addZero(this.data.stockCode, 6), data.totalPage)
-      },
-      createKey: () => {
-        let val = this.createKeyStr3(104, '000000', this.data.stockCode, true, 0, true)
-        return val
-      }
-    }, {
-      type: '126',
-      intervalTime: 10000,
-      changeCb: (data) => {
-        // let oldData = wx.getStorageSync('k126000000000000000000000000000')
-        let oldData = {
-          data: []
-        }
-        if (this.data.t126) {
-          oldData = this.data.t126
-        }
-        for (let i = 0; i < data.data.length; i++) {
-          let flag = true
-          for (let j = 0; j < oldData.data.length; j++) {
-            if (data.data[i].no == oldData.data[j].no && data.data[i].stockCode == oldData.data[j].stockCode && data.data[i].time == oldData.data[j].time && data.data[i].value == oldData.data[j].value) {
-              oldData.data[j] = data.data[i]
-              flag = false
-            }
-          }
-          if (flag) {
-            oldData.data.push(data.data[i])
-          }
-        }
-        data.data = oldData.data.slice(-50)
-        this.setData({
-          t126: data
-        })
-        return data
-      },
-      createKey: () => {
-        let val = this.createMonitorStr(126, '000000', '000000')
-        return val
-      }
-    }], this, () => { })
+    let storage = this.data.storage
     if (!this.data.isStock) {
       storage.addFile({
         type: '129',
@@ -2561,22 +2414,10 @@ Page({
       })
     }
 
-    this.setData({
-      storage
-    })
-
 
     this.setView()
+    this.isHasStaticData()
     this.data.storage.getFileData()
-    connect((data) => {
-      this.data.storage.observeFileChange(data.type, data)
-    })
-    wx.onSocketOpen(() => { // 监听WebSocket连接打开事件。
-      this.data.storage.getFileData()
-      connect((data) => {
-        this.data.storage.observeFileChange(data.type, data)
-      })
-    })
 
     this.settingHandler()
     this.initTabSelect()
