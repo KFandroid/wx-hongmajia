@@ -69,7 +69,7 @@ App({
     selectStock: {
       code: '010001',
       stockName: '平安银行',
-      stockNo: '000001'
+      stockCode: '000001'
     },
     userInfo: null,
     stockList: null,

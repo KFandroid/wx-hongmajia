@@ -66,6 +66,7 @@ Component({
 
 
           if (oldData.page !== newData.page) {
+            debugger
             this.data.data = {
               rf: newData.data
             }
@@ -331,6 +332,7 @@ Component({
       if (index >= this.data.needData.length) {
         index = this.data.needData.length - 1
       }
+      this.data.currentIndex = index
       if (Object.prototype.toString.call(this.data.needData) !== "[object Array]") {
         return
       }
@@ -585,7 +587,6 @@ Component({
       }
     },
     processRf() {
-      let data = this.data.data.rf
       let temp = this.data.data.beforeRf = JSON.parse(JSON.stringify(this.data.data.rf))
       let rfArr = this.data.rfArr
       for (let i = temp.length - 1; i >= 0; i--) {

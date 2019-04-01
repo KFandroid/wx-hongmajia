@@ -245,7 +245,7 @@
          bind:getK138="getK138" 
          bind:tabUse="tabUse" 
          wx:if="{{subSelect==13 && bottomIndex == 2}}"></component-history>
-        <component-lhbDetail wx:if="{{subSelect==11}}" bind:tabUse="tabUse" bind:getK134="getK134" bind:getK136="getK136" bind:getK137="getK137" t136="{{t136}}" t137="{{t137}}" t134="{{t134}}"></component-lhbDetail>
+        <component-lhbDetail wx:if="{{subSelect==11 && bottomIndex == 2}}" bind:tabUse="tabUse" bind:getK134="getK134" bind:getK136="getK136" bind:getK137="getK137" t136="{{t136}}" t137="{{t137}}" t134="{{t134}}"></component-lhbDetail>
         <indicator  
         selectIndex="{{selectIndex}}"
         bottomIndex="{{bottomIndex}}"

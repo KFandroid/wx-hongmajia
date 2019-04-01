@@ -3149,7 +3149,6 @@ let timeTable = [{
   x:0,
   y:0,
 }]
-console.log(timeTable.length)
 Component({
   /**
    * 组件的属性列表

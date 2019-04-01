@@ -304,10 +304,11 @@ Page({
     dealHeight: 0,
     dealWidth: 0,
     barGraphHeight: 60,
-    stockCode: '010001',
+    stockCode: '',
+    stockChanged: true,
     stockInfo: {
-      name: '平安银行',
-      stockNo: '000001'
+      name: '',
+      stockNo: ''
     },
     agentInfo: [],
     agentDetail: [],
@@ -382,174 +383,9 @@ Page({
     })
   },
   getOtherData(){
-    let otherFlieList = [{
-      type: '101',
-      intervalTime: 9000,
-      changeCb: (data) => {
-        this.setData({
-          t101: data
-        })
-      },
-      createKey: () => {
-        let val = this.createKeyStr2(101, '000000', '000000', true)
-        return val
-      }
-    },  {
-      type: '108',
-      changeCb: (data) => {
-        let stockInfo = {
-          current: data.data.current,
-          rise: data.data.rise,
-          high: data.data.high,
-          low: data.data.low,
-          close: data.data.close,
-          open: data.data.open,
-          hand: data.data.hand,
-          volume: data.data.volume
-        }
-        this.setData({
-          stockInfo: Object.assign({}, this.data.stockInfo, stockInfo)
-        })
-      },
-      intervalTime: 10000,
-      createKey: () => {
-        const TYPE = 108
-        let val = this.createKeyStr3(108, '000000', this.data.stockCode, true)
-        return val
-      }
-      // isCallMainBack: false
-    }, {
-      type: '110',
-      changeCb: (data) => {
-        this.setData({
-          agentInfo: data
-        })
-      },
-      intervalTime: 5000,
-      createKey: () => {
-        let val = this.createKeyStr3(110, '000000', this.data.stockCode, true)
-        return val
-      }
-    }, {
-      type: '122',
-      intervalTime: 5000,
-      changeCb: (data) => {
-        for (let j = 0; j < data.data.length; j++) {
-          let flag = true
-          for (let i = 0; i < this.data.agentDetail.length; i++) {
-            if (this.data.agentDetail[i].time == data.data[j].time) {
-              this.data.agentDetail[i] = data.data[j]
-              flag = false
-            }
-          }
-          if (flag) {
-            this.data.agentDetail.push(data.data[j])
-          }
-        }
-        this.setData({
-          agentDetail: this.data.agentDetail,
-          stockPcp: data.pcp
-        })
-        data.data = this.data.agentDetail
-        
-        return data
-      },
-      createKey: () => {
-        let val = this.createKeyStr(122, '000000', this.data.stockCode, true)
-        return val
-      }
-    }, {
-      type: '113',
-      changeCb: (data) => {
-
-        this.setData({
-          kLinesData: data
-        })
-      },
-      createKey: () => {
-
-        let val = this.createKeyStr3(113, '000000', this.data.stockCode, true, 0, true)
-        return val
-      }
-    }, {
-      type: '114',
-      intervalTime: 7000,
-      changeCb: (data) => {
-
-        this.setData({
-          kLinesDataCurrent: data
-        })
-      },
-      createKey: () => {
-        let val = this.createKeyStr3(114, '000000', this.data.stockCode, true)
-        return val
-      }
-    }, {
-      type: '117',
-      changeCb: (data) => {
-        this.setData({
-          rfArr: data.data
-        })
-      },
-      createKey: () => {
-
-        let val = this.createKeyStr(117, '000000', this.data.stockCode, true)
-        return val
-      }
-    }, {
-      type: '104',
-      changeCb: (data) => {
-        this.setData({
-          stockDetailData: data
-        })
-        wx.setStorageSync('page104' + addZero(this.data.stockCode, 6), data.totalPage)
-      },
-      createKey: () => {
-        let val = this.createKeyStr3(104, '000000', this.data.stockCode, true, 0, true)
-        return val
-      }
-    }, {
-      type: '126',
-      intervalTime: 8000,
-      changeCb: (data) => {
-        // let oldData = wx.getStorageSync('k126000000000000000000000000000')
-        let oldData = {
-          data: []
-        }
-        if (this.data.t126) {
-          oldData = this.data.t126
-        }
-        for (let i = 0; i < data.data.length; i++) {
-          let flag = true
-          for (let j = 0; j < oldData.data.length; j++) {
-            if (data.data[i].no == oldData.data[j].no && data.data[i].stockCode == oldData.data[j].stockCode && data.data[i].time == oldData.data[j].time && data.data[i].value == oldData.data[j].value) {
-              oldData.data[j] = data.data[i]
-              flag = false
-            }
-          }
-          if (flag) {
-            oldData.data.push(data.data[i])
-          }
-        }
-        data.data = oldData.data.slice(-50)
-        this.setData({
-          t126: data
-        })
-        return data
-      },
-      createKey: () => {
-        let val = this.createMonitorStr(126, '000000', '000000')
-        return val
-      }
-    }]
-    let storage
-    if(this.data.storage) {
-      storage = this.data.storage
-      for(let i = 0; i < otherFlieList.length; i++) {
-        storage.addFile(otherFlieList[i])
-      }
-    } else {
-      storage = new WXStorage(otherFlieList, this, () => {})
+    this.getIntervalData()
+    if(this.data.stockChanged) {
+      this.getStaticData()
     }
   },
   //事件处理函数
@@ -904,7 +740,7 @@ Page({
                 currentInfo: lastData
               })
             }
-            
+            debugger
             return tempData
           },
           createKey: () => {
@@ -1250,11 +1086,13 @@ Page({
     }
   },
   init(stockInfo) {
+    this.data.stockChanged = true
     this.setData({
       drawData: {
         data: []
       }
     })
+    
     if (Object.keys(stockInfo).length > 0) {
       this.initTabSelect()
       this.setData({
@@ -1272,13 +1110,199 @@ Page({
       app.globalData = Object.assign({}, app.globalData, data)
     }
   },
+  getStaticData() {
+    const staticFileList = [{
+      type: '104',
+      changeCb: (data) => {
+        this.setData({
+          stockDetailData: data
+        })
+        wx.setStorageSync('page104' + addZero(this.data.stockCode, 6), data.totalPage)
+      },
+      createKey: () => {
+        let val = this.createKeyStr3(104, '000000', this.data.stockCode, true, 0, true)
+        return val
+      }
+    }, {
+      type: '117',
+      changeCb: (data) => {
+        this.setData({
+          rfArr: data.data
+        })
+      },
+      createKey: () => {
+
+        let val = this.createKeyStr(117, '000000', this.data.stockCode, true)
+        return val
+      }
+    }, {
+      type: '113',
+      changeCb: (data) => {
+        this.setData({
+          kLinesData: data
+        })
+      },
+      createKey: () => {
+        this.data.kLinesData
+        let val = this.createKeyStr3(113, '000000', this.data.stockCode, true, 0, true)
+        return val
+      }
+    }]
+    let storage
+    if(this.data.storage) {
+      storage = this.data.storage
+      for(let i = 0; i < staticFileList.length; i++) {
+        storage.addFile(staticFileList[i])
+      }
+    } else {
+      storage = new WXStorage(staticFileList, this, () => {})
+    }
+  },
+  getIntervalData() {
+    let IntervalFileList = [{
+      type: '101',
+      intervalTime: 9000,
+      changeCb: (data) => {
+        this.setData({
+          t101: data
+        })
+      },
+      createKey: () => {
+        let val = this.createKeyStr2(101, '000000', '000000', true)
+        return val
+      }
+    }, {
+      type: '108',
+      changeCb: (data) => {
+        let stockInfo = {
+          current: data.data.current,
+          rise: data.data.rise,
+          high: data.data.high,
+          low: data.data.low,
+          close: data.data.close,
+          open: data.data.open,
+          hand: data.data.hand,
+          volume: data.data.volume
+        }
+        this.setData({
+          stockInfo: Object.assign({}, this.data.stockInfo, stockInfo)
+        })
+      },
+      intervalTime: 10000,
+      createKey: () => {
+        const TYPE = 108
+        let val = this.createKeyStr3(108, '000000', this.data.stockCode, true)
+        return val
+      }
+      // isCallMainBack: false
+    }, {
+      type: '110',
+      changeCb: (data) => {
+        this.setData({
+          agentInfo: data
+        })
+      },
+      intervalTime: 5000,
+      createKey: () => {
+        let val = this.createKeyStr3(110, '000000', this.data.stockCode, true)
+        return val
+      }
+    }, {
+      type: '122',
+      intervalTime: 5000,
+      changeCb: (data) => {
+        for (let j = 0; j < data.data.length; j++) {
+          let flag = true
+          for (let i = 0; i < this.data.agentDetail.length; i++) {
+            if (this.data.agentDetail[i].time == data.data[j].time) {
+              this.data.agentDetail[i] = data.data[j]
+              flag = false
+            }
+          }
+          if (flag) {
+            this.data.agentDetail.push(data.data[j])
+          }
+        }
+        this.setData({
+          agentDetail: this.data.agentDetail,
+          stockPcp: data.pcp
+        })
+        data.data = this.data.agentDetail
+        
+        return data
+      },
+      createKey: () => {
+        let val = this.createKeyStr(122, '000000', this.data.stockCode, true)
+        return val
+      }
+    }, {
+      type: '114',
+      intervalTime: 7000,
+      changeCb: (data) => {
+
+        this.setData({
+          kLinesDataCurrent: data
+        })
+      },
+      createKey: () => {
+        let val = this.createKeyStr3(114, '000000', this.data.stockCode, true)
+        return val
+      }
+    }, {
+      type: '126',
+      intervalTime: 8000,
+      changeCb: (data) => {
+        // let oldData = wx.getStorageSync('k126000000000000000000000000000')
+        let oldData = {
+          data: []
+        }
+        if (this.data.t126) {
+          oldData = this.data.t126
+        }
+        for (let i = 0; i < data.data.length; i++) {
+          let flag = true
+          for (let j = 0; j < oldData.data.length; j++) {
+            if (data.data[i].no == oldData.data[j].no && data.data[i].stockCode == oldData.data[j].stockCode && data.data[i].time == oldData.data[j].time && data.data[i].value == oldData.data[j].value) {
+              oldData.data[j] = data.data[i]
+              flag = false
+            }
+          }
+          if (flag) {
+            oldData.data.push(data.data[i])
+          }
+        }
+        data.data = oldData.data.slice(-50)
+        this.setData({
+          t126: data
+        })
+        return data
+      },
+      createKey: () => {
+        let val = this.createMonitorStr(126, '000000', '000000')
+        return val
+      }
+    }]
+    
+    let storage
+    if(this.data.storage) {
+      storage = this.data.storage
+      for(let i = 0; i < IntervalFileList.length; i++) {
+        storage.addFile(IntervalFileList[i])
+      }
+    } else {
+      storage = new WXStorage(IntervalFileList, this, () => {})
+    }
+  },
   onShow() {
     if (!app.globalData.selectStock) {
       app.globalData.selectStock = wx.getStorageSync('selectStock')
     }
     let stockInfo = app.globalData.selectStock
+    
     if (this.data.stockCode != addZero(stockInfo.code, 6)) {
       this.init(stockInfo)
+    } else {
+      this.data.stockChanged = false
     }
     this.data.kSettingItem = app.globalData.settingItem
     if (this.data.storage) {
@@ -1287,7 +1311,10 @@ Page({
     this.setData({
       kSettingItem: this.data.kSettingItem
     })
-    this.clearData()
+    if(this.data.stockChanged) {
+      this.clearData()
+    }
+    
     // 109 为时间数据
     let t109 = wx.getStorageSync('a109000000000000000000000000000').data
 
@@ -1517,8 +1544,11 @@ Page({
     this.settingHandler()
     this.initTabSelect()
     if (Object.keys(stockInfo).length > 0) {
-      this.getKData()
+      if(this.data.stockChanged) {
+        this.getKData()
       this.getSubTableData()
+      }
+      
       if (this.data.subSelect == 13) {
         this.getK138({
           detail: stockInfo.code
@@ -1628,10 +1658,8 @@ Page({
     storage.deleteFile(117)
     storage.deleteFile(115)
     storage.deleteFile(116)
-    storage.deleteFile(117)
     storage.deleteFile(118)
     storage.deleteFile(119)
-    storage.deleteFile(117)
     storage.deleteFile(123)
     storage.deleteFile(124)
     storage.deleteFile(125)
@@ -1709,7 +1737,7 @@ Page({
                 currentInfo: lastData
               })
             }
-            
+            debugger
             return tempData
           },
           createKey: () => {
@@ -1731,7 +1759,6 @@ Page({
         storage.addFile({
           type: '113',
           changeCb: (data) => {
-
             this.setData({
               kLinesData: data
             })
@@ -2259,6 +2286,7 @@ Page({
     }
     let nextIndex = (index + direction + stockList.length) % stockList.length
     let currentStock = stockList[nextIndex]
+    debugger
     let data = wx.getStorageSync(
       'globalData' + currentStock.stockCode
     )
@@ -2546,8 +2574,11 @@ Page({
     this.settingHandler()
     this.initTabSelect()
     if (Object.keys(stockInfo).length > 0) {
-      this.getKData()
-      this.getSubTableData()
+      if(this.data.stockChanged) {
+        this.getKData()
+        this.getSubTableData()
+      }
+      
       if (this.data.subSelect == 13) {
         this.getK138({
           detail: stockInfo.code

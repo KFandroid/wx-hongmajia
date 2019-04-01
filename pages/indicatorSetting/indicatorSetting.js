@@ -37,7 +37,6 @@ Page({
     }
   },
   inpuParam(e) {
-    console.log(e)
    let key = e.currentTarget.dataset.name
    let input = e.detail.value
    if(this.filterNum(input)) {

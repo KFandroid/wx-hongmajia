@@ -33,7 +33,6 @@ Page({
         stockList.push(app.globalData.stockList[i])
       }
     }
-    console.log(JSON.stringify(stockList))
   },
   navigateToStockInfo: function (e) {
     app.globalData.stockList = app.globalData.a105.data
@@ -43,6 +42,7 @@ Page({
       stock
     )
     app.globalData.selectStock = stock
+    debugger
     wx.navigateBack({
       delta: 1
     })
