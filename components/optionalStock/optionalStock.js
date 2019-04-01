@@ -15,6 +15,17 @@ Component({
             }
           }
         }
+        for (let i = 0; i < this.data.allData.length; i++) {
+          let flag = true;
+          for (let j = 0; j < data.data.length; j++) {
+            if (this.data.allData[i].stockCode = data.data[j].stockCode) {
+              flag = false;
+            }
+          }
+          if (flag) {
+            data.data.push(this.data.allData[i])
+          }
+        }
         this.setData({
           allData: data.data
         })
@@ -39,21 +50,54 @@ Component({
           name: '自选股'
         }])
       }
+      let t105 = app.globalData.a105.data
+      let data = wx.getStorageSync('customStockTable')['自选股']
+      let allDataTemp = []
+      if (data) {
+        for (let i = 0; i < t105.length; i++) {
+          for (let j = 0; j < data.length; j++) {
+            if (t105[i].stockCode == data[j]) {
+              allDataTemp.push({
+                stockName: t105[i].stockName,
+                stockCode: t105[i].stockCode
+              })
+            }
+          }
+        }
+      }
       this.setData({
-        selector: wx.getStorageSync('customStockClass')
+        selector: wx.getStorageSync('customStockClass'),
+        allData: allDataTemp
       })
       this.getK107()
       EventBus.on('updateOptionStock', this.getK107.bind(this))
     }
   },
   methods: {
-    bindPickerChange: function(e) {
+    bindPickerChange: function (e) {
       this.setData({
         index: e.detail.value,
         allData: [],
         data: [],
         page: 1,
-        totalPage: 1,
+        totalPage: 1
+      })
+      let t105 = app.globalData.a105.data
+      let data = wx.getStorageSync('customStockTable')[wx.getStorageSync('customStockClass')[e.detail.value].name]
+      let allDataTemp = []
+      for (let i = 0; i < t105.length; i++) {
+        for (let j = 0; j < data.length; j++) {
+          if (t105[i].stockCode == data[j]) {
+            allDataTemp.push({
+              stockName: t105[i].stockName,
+              stockCode: t105[i].stockCode
+            })
+          }
+        }
+      }
+      this.setData({
+        selector: wx.getStorageSync('customStockClass'),
+        allData: allDataTemp
       })
       this.getK107()
     },
@@ -104,7 +148,7 @@ Component({
         }
       }
       EventBus.emit('changeStockAndStockList', {
-        stock:currentStock,
+        stock: currentStock,
         stockList: lists
       })
     }
