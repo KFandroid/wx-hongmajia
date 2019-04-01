@@ -418,10 +418,11 @@ Component({
     },
     drawVolumeAvg(days, color) {
       let data
+      let start = this.data.start - days + 1
       if (this.data.beforeRf) {
-        data = this.data.data.beforeRf.slice(this.data.start + 1 - days, this.data.end)
+        data = this.data.data.beforeRf.slice(start < 0 ? 0 : start, this.data.end)
       } else {
-        data = this.data.data.rf.slice(this.data.start + 1 - days, this.data.end)
+        data = this.data.data.rf.slice(start < 0 ? 0 : start, this.data.end)
       }
       let lineArr = []
       for (let i = days - 1; i < data.length; i++) {
@@ -448,12 +449,14 @@ Component({
       this.data.context.strokeStyle = color
       this.data.context.beginPath();
       for (let k = 0; k < lineArr.length; k++) {
-        if (first) {
-          this.data.context.moveTo(this.data.xDomain[k], this.computeY(+lineArr[k].value));
-          first = false
-        } else {
-          this.data.context.lineTo(this.data.xDomain[k], this.computeY(+lineArr[k].value));
-          this.data.context.moveTo(this.data.xDomain[k], this.computeY(+lineArr[k].value));
+        if (lineArr[k].value) {
+          if (first) {
+            this.data.context.moveTo(this.data.xDomain[k], this.computeY(+lineArr[k].value));
+            first = false
+          } else {
+            this.data.context.lineTo(this.data.xDomain[k], this.computeY(+lineArr[k].value));
+            this.data.context.moveTo(this.data.xDomain[k], this.computeY(+lineArr[k].value));
+          }
         }
       }
       this.data.context.closePath()

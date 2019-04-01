@@ -445,11 +445,11 @@ Component({
           this.data.start += moveCount
           this.data.end += moveCount
           if (this.data.end > this.data.data.rf.length) {
-            
+
             this.data.end = this.data.data.rf.length
             this.data.start = this.data.end - this.data.count
           }
-          
+
         }
         this.data.moveDirection = ''
       }
@@ -717,10 +717,11 @@ Component({
     },
     drawMoveAvg(days, color) {
       let data
+      let start = this.data.start - days + 1
       if (this.data.beforeRf) {
-        data = this.data.data.beforeRf.slice(this.data.start - days + 1, this.data.end)
+        data = this.data.data.beforeRf.slice(start < 0 ? 0 : start, this.data.end)
       } else {
-        data = this.data.data.rf.slice(this.data.start - days + 1, this.data.end)
+        data = this.data.data.rf.slice(start < 0 ? 0 : start, this.data.end)
       }
       let lineArr = []
       for (let i = days - 1; i < data.length; i++) {
@@ -739,15 +740,21 @@ Component({
           this.data.yDomain[1] = value / days
         }
       }
+      if (start < 0) {
+        for (let i = 0; i < -start; i++) {
+          lineArr.unshift({})
+        }
+      }
       this.data.lineArr[days] = lineArr
       // this.drawBrokeLine(lineArr, color)
     },
     drawCostAvg(days, color) {
       let data
+      let start = this.data.start - days + 1
       if (this.data.beforeRf) {
-        data = this.data.data.beforeRf.slice(this.data.start - days + 1, this.data.end)
+        data = this.data.data.beforeRf.slice(start < 0 ? 0 : start, this.data.end)
       } else {
-        data = this.data.data.rf.slice(this.data.start - days + 1, this.data.end)
+        data = this.data.data.rf.slice(start < 0 ? 0 : start, this.data.end)
       }
       let lineArr = []
       for (let i = days - 1; i < data.length; i++) {
@@ -769,32 +776,24 @@ Component({
         }
       }
       this.data.lineArr['cost' + days] = lineArr
-      this.drawBrokeLine(lineArr, color)
     },
     drawBrokeLine(lineArr, color) {
       let first = true
       this.data.context.strokeStyle = color
       this.data.context.beginPath();
       for (let k = 0; k < lineArr.length; k++) {
-        if (first) {
-          this.data.context.moveTo(this.data.xDomain[k], this.computeY(+lineArr[k].value));
-          first = false
-        } else {
-          this.data.context.lineTo(this.data.xDomain[k], this.computeY(+lineArr[k].value));
-          this.data.context.moveTo(this.data.xDomain[k], this.computeY(+lineArr[k].value));
+        if (lineArr[k].value) {
+          if (first) {
+            this.data.context.moveTo(this.data.xDomain[k], this.computeY(+lineArr[k].value));
+            first = false
+          } else {
+            this.data.context.lineTo(this.data.xDomain[k], this.computeY(+lineArr[k].value));
+            this.data.context.moveTo(this.data.xDomain[k], this.computeY(+lineArr[k].value));
+          }
         }
       }
       this.data.context.closePath()
       this.data.context.stroke()
-    },
-    moveData(direction) {
-      this.data.clickBtn = true
-      this.data.moveDirection = direction
-      this.data.crosshairDate = null
-      this.data.showCrosshair = false
-      EventBus.emit('closecrosshair')
-      this.processData()
-      this.draw()
     },
     moveCrosshairByBtn(direction) {
       let type
@@ -814,8 +813,8 @@ Component({
       }
       let width = this.data.rectInterval + this.data.rectWidth
       let index = this.data.currentIndex
-      if(this.data.end === this.data.data.rf.length && direction === 'right' && index === this.data.needData.length - 1) {
-        return 
+      if (this.data.end === this.data.data.rf.length && direction === 'right' && index === this.data.needData.length - 1) {
+        return
       }
       if (direction === 'left') {
         index -= 1
@@ -824,7 +823,7 @@ Component({
       }
       this.data.currentIndex = index
       let realX = width * index + this.data.rectWidth / 2
-      
+
       if (realX < 0) {
         this.data.stepMove = 1
         this.data.moveDirection = 'left'
