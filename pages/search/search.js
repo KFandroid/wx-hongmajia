@@ -42,7 +42,7 @@ Page({
       stock
     )
     app.globalData.selectStock = stock
-    debugger
+    
     wx.navigateBack({
       delta: 1
     })

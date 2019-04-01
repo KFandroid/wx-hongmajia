@@ -740,7 +740,7 @@ Page({
                 currentInfo: lastData
               })
             }
-            debugger
+            
             return tempData
           },
           createKey: () => {
@@ -1294,6 +1294,7 @@ Page({
     }
   },
   onShow() {
+    
     if (!app.globalData.selectStock) {
       app.globalData.selectStock = wx.getStorageSync('selectStock')
     }
@@ -1303,6 +1304,10 @@ Page({
       this.init(stockInfo)
     } else {
       this.data.stockChanged = false
+    }
+    if(this.data.hideBack && !this.data.stockChanged) {
+      this.getIntervalData()
+      return
     }
     this.data.kSettingItem = app.globalData.settingItem
     if (this.data.storage) {
@@ -1647,10 +1652,12 @@ Page({
 
   },
   getKData() {
-    this.setData({
-      kLinesData: {},
-      kLinesDataCurrent: {}
-    })
+    if(this.data.stockChanged) {
+      this.setData({
+        kLinesData: {},
+        kLinesDataCurrent: {}
+      })
+    }
     let storage = this.data.storage
     storage.deleteFile(112)
     storage.deleteFile(113)
@@ -1737,7 +1744,7 @@ Page({
                 currentInfo: lastData
               })
             }
-            debugger
+            
             return tempData
           },
           createKey: () => {
@@ -2286,7 +2293,7 @@ Page({
     }
     let nextIndex = (index + direction + stockList.length) % stockList.length
     let currentStock = stockList[nextIndex]
-    debugger
+    
     let data = wx.getStorageSync(
       'globalData' + currentStock.stockCode
     )
@@ -2688,6 +2695,7 @@ Page({
   },
   onHide() {
     this.data.storage.clearFile()
+    this.data.hideBack = true
   },
   dateChange(e) {
     this.setData({
