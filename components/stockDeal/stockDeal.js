@@ -348,6 +348,11 @@ Component({
 
     },
     transfer2y(y) {
+      
+      if(!y || y === undefined) { // 避免无意义的计算
+        return this.data.yRange[1]
+      }
+      
       let yRange = this.data.yRange
       let yDomain = this.data.yDomain
       return (yDomain[1] - y) / (yDomain[1] - yDomain[0]) * (yRange[1] - yRange[0]) + yRange[0]

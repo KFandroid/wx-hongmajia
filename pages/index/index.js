@@ -1305,10 +1305,6 @@ Page({
     } else {
       this.data.stockChanged = false
     }
-    if(this.data.hideBack && !this.data.stockChanged) {
-      this.getIntervalData()
-      return
-    }
     this.data.kSettingItem = app.globalData.settingItem
     if (this.data.storage) {
       this.data.storage.clearFile()
@@ -1316,6 +1312,12 @@ Page({
     this.setData({
       kSettingItem: this.data.kSettingItem
     })
+    this.settingHandler()
+    if(this.data.hideBack && !this.data.stockChanged) {
+      this.getIntervalData()
+      return
+    }
+    
     if(this.data.stockChanged) {
       this.clearData()
     }
@@ -1536,7 +1538,7 @@ Page({
       })
     })
 
-    this.settingHandler()
+    
     this.initTabSelect()
     if (Object.keys(stockInfo).length > 0) {
       if(this.data.stockChanged) {
