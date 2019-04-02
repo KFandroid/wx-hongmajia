@@ -2048,7 +2048,7 @@ Page({
     let key2 = '' + fileType + itemCode + '000' + stockCode + dateStr
     let kData = app.globalData['a' + key + sortCode] || app.globalData['a' + key2 + sortCode]
     if (kData) {
-      timestamp = addZero(kData.timestamp, 10)
+      timestamp = addZero('kData.timestamp', 10)
     } else {
       for (let i = 0; i < 10; i++) {
         timestamp += '0'
@@ -2414,6 +2414,20 @@ Page({
           return val
         }
       })
+      storage.addFile({
+        type: '142',
+        changeCb: (data) => {
+          
+          this.setData({
+            infoLsData: data.data
+          })
+        },
+        createKey: () => {
+          let val = this.createKeyStr3(142, '000000', this.data.stockCode, true, 0, true)
+          
+          return val
+        }
+      })
     }
 
 
@@ -2455,7 +2469,6 @@ Page({
     } else {
       page = '000'
       dateStr = '00000000'
-      // dateStr = this.data.date.split('-').join('')
       sortCode = '0000'
     }
 

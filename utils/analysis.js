@@ -174,6 +174,7 @@ const toTable122 = function(dataView) {
   let dataByteLength
   dataByteLength = 24
   let itemLength = Math.round((dataView.byteLength - 36) / dataByteLength)
+  
   for (let i = 0; i < itemLength; i++) {
     let temp = {}
     let strArr = []

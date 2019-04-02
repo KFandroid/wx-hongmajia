@@ -168,7 +168,7 @@ let timeTable = [{
   dealA:0,
   dealN:0,
   dealPrice:"0.00",
-  dn:0,
+  dn:0,                                                                         
   x:0,
   y:0,
 },
@@ -3230,10 +3230,13 @@ Component({
       value: {},
       observer(newData) {
         if (newData.jhjj == true) {
+          this.data.DrawM30 = false
           this.openjhjj()
         } else {
+          this.data.DrawM30 = true
           this.closejhjj()
         }
+        this.doDraw
       }
     }
   },
@@ -3544,6 +3547,11 @@ Component({
         data.data[i].y = this.transfer2y(data.data[i].dealPrice)
         data.data[i].averagey = this.transfer2y(data.data[i].averagePrice)
       }
+      if(this.data.DrawM30) {
+        data.data[15].dealA = data.data[10].dealA
+        data.data[15].dealN = data.data[10].dealN
+        
+      }
       this.data.data = data
     },
 
@@ -3651,7 +3659,6 @@ Component({
 
       for (let length = data.length; i < length; i++) {
         ctx.lineTo(data[i].x, data[i].averagey)
-
       }
 
       ctx.setStrokeStyle('orange')
@@ -3662,7 +3669,7 @@ Component({
       let data = this.data.data.data
       let startIndex = 0
       for (let i = 0, length = data.length; i < length; i++) {
-        if(data[i].averageDa != 0) {
+        if(parseInt(data[i].dealPrice) != 0 ) {
           startIndex = i
           break
         }
@@ -3672,7 +3679,7 @@ Component({
       let prevData = data[startIndex]
       for (let i = startIndex + 1, length = data.length; i < length; i++) {
         
-        if(data[i].dealA !== 0 && parseInt(data[i].price) !== 0) {
+        if(data[i].dealA !== 0 || parseInt(data[i].dealPrice) !== 0) {
           ctx.lineTo(data[i].x, data[i].y)
           prevData = data[i]
         } else if(data[i].averageDa !== 0){
