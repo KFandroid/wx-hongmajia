@@ -173,7 +173,7 @@
     <view class="left col-24-16">
       <view class="menu-bar flex-box col-16-16" style="border-top:none;justify-content:flex-start;">
         <view class="btn" style='width:160rpx;color:#fff;background-color:gray;'>
-          项目：{{bottomTab[bottomIndex - 1]}}
+          项目：{{bottomTab[bottomIndex - 1].name}}
         </view>
         <!-- 盘口 -->
         <view class="subTab {{subSelect==1?'btn-selected':''}}" wx:if="{{selectIndex == 1 && bottomIndex==1 &&!isStock}}" data-index="1" bindtap='changeSubSelect'>
@@ -273,10 +273,10 @@
       <view 
       wx:for="{{bottomTab}}" 
       wx:key="index" 
-      class="under-btn {{selectIndex === 1 && index === 6 ?'hide':''}} {{bottomIndex== (index + 1) ?'btn-selected':''}}" 
+      class="under-btn {{item.show ? '' : 'hide'}} {{selectIndex === 1 && index === 6 ?'hide':''}} {{bottomIndex== (index + 1) ?'btn-selected':''}}" 
       data-index="{{index + 1}}" 
       bindtap='bottomTabChange'>
-        {{item}}
+        {{item.name}}
       </view>
     </view>
   </view>

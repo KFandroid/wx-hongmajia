@@ -127,11 +127,14 @@ Component({
               }
             }
           }
+          
           let nowCount = this.data.data.rf.length
           let dvalue = nowCount - oldCount
           if (dvalue > 0) {
             this.data.start = this.data.start + dvalue
             this.data.end = this.data.end + dvalue
+          } else {
+            return
           }
           if (!this.data.clickBtn || this.data.end == this.data.data.rf.length) {
             this.data.start = -1
@@ -333,6 +336,7 @@ Component({
         index = this.data.needData.length - 1
       }
       this.data.currentIndex = index
+      
       if (Object.prototype.toString.call(this.data.needData) !== "[object Array]") {
         return
       }
@@ -366,7 +370,7 @@ Component({
     },
     moveCrosshair(crosshairPosition) {
       this.calculateCrosshair(crosshairPosition)
-      this.processData()
+      // this.processData()
       this.draw()
     },
     processData() {
@@ -423,6 +427,7 @@ Component({
         let moveCount = Math.round(count * movePercent)
         if (this.data.stepMove != 0) {
           moveCount = this.data.stepMove
+          
           wx.nextTick(() => {
             this.moveCrosshairByBtn(moveDirection)
           })
@@ -439,12 +444,13 @@ Component({
           }
           this.data.start -= moveCount
           this.data.end -= moveCount
+          
           if (this.data.start < 0) {
             this.data.end -= this.data.start
             this.data.start = 0
           }
 
-        } else if (moveDirection === 'right' && this.data.end < this.data.data.rf.length - 1) {
+        } else if (moveDirection === 'right' && this.data.end < this.data.data.rf.length ) {
           this.data.start += moveCount
           this.data.end += moveCount
           if (this.data.end > this.data.data.rf.length) {
@@ -554,38 +560,20 @@ Component({
         rectInterval: this.data.rectInterval,
         start: this.data.start
       })
-      // if (this.data.showCrosshair) {
-      //   let start = this.data.start
-      //   let currentIndex = realIndex - start
-      //   if (realIndex === this.data.end) {
-      //     currentIndex -= 1
-      //   }
-      //   if (isNaN(currentIndex)) {
-      //     currentIndex = this.data.needData.length - 1
-      //   }
-      //   let price = this.data.needData[currentIndex].price
-      //   let type
-      //   switch (this.data.selectIndex) {
-      //     case 2:
-      //       type = 'kline'
-      //       break
-      //     case 3:
-      //       type = 'k5line'
-      //       break
-      //     case 4:
-      //       type = 'k30line'
-      //       break
-      //     case 5:
-      //       type = 'kweekline'
-      //       break
-      //   }
-      //   // this.calculateCrosshair({ x: this.data.xDomain[currentIndex], type })
-      //   this.data.currentIndex = currentIndex
-      //   EventBus.emit('movecrosshair', { x: this.data.xDomain[currentIndex], type })
-      //   // this.triggerEvent('drawkcrosshair', {
-      //   //   x: this.data.xDomain[currentIndex]
-      //   // })
-      // }
+      if (this.data.showCrosshair) {
+        let start = this.data.start
+        let currentIndex = realIndex - start
+        
+        if (realIndex === this.data.end) {
+          currentIndex -= 1
+        }
+        if (isNaN(currentIndex)) {
+          currentIndex = this.data.needData.length - 1
+        }
+        // this.calculateCrosshair({ x: this.data.xDomain[currentIndex], type })
+        this.data.currentIndex = currentIndex
+        
+      }
     },
     processRf() {
       let temp = this.data.data.beforeRf = JSON.parse(JSON.stringify(this.data.data.rf))
@@ -835,6 +823,7 @@ Component({
         index += 1
       }
       this.data.currentIndex = index
+      
       let realX = width * index + this.data.rectWidth / 2
 
       if (realX < 0) {

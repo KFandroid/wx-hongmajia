@@ -315,7 +315,73 @@ Page({
     drawData: {
       data: []
     },
-    bottomTab: ['盘口', '龙虎榜', '公告', '资料', '两融', '自选', '指标'],
+    
+    bottomTab: [{
+      name: '异动',
+      show: true
+    },{
+      name: '龙虎榜',
+      show: false
+    },{
+      name: '公告',
+      show: false
+    },{
+      name: '资料',
+      show: true
+    },{
+      name: '两融',
+      show: false
+    },{
+      name: '自选',
+      show: true
+    },{
+      name: '指标',
+      show: true
+    }],
+    bottomTab2: [{
+      name: '异动',
+      show: true
+    },{
+      name: '龙虎榜',
+      show: false
+    },{
+      name: '公告',
+      show: true
+    },{
+      name: '资料',
+      show: false
+    },{
+      name: '两融',
+      show: false
+    },{
+      name: '自选',
+      show: true
+    },{
+      name: '指标',
+      show: false
+    }],
+    bottomTab3: [{
+      name: '异动',
+      show: true
+    },{
+      name: '龙虎榜',
+      show: false
+    },{
+      name: '公告',
+      show: false
+    },{
+      name: '资料',
+      show: true
+    },{
+      name: '两融',
+      show: false
+    },{
+      name: '自选',
+      show: true
+    },{
+      name: '指标',
+      show: true
+    }],
     ydlsData: {},
     ydCurrentData: {},
     ydStockLsData: {},
@@ -563,6 +629,9 @@ Page({
         storage.deleteFile(125)
     }
     if (index >= 2) {
+      this.setData({
+        bottomTab: this.data.bottomTab3
+      })
       let type
       switch (this.data.selectIndex) {
         case 2:
@@ -666,10 +735,9 @@ Page({
     }
     switch (index) {
       case 1:
-        // this.setData({
-        //   kLinesData: null,
-        //   kLinesDataCurrent: null
-        // })
+        this.setData({
+          bottomTab: this.data.bottomTab2
+        })
         storage.addFile({
           type: '112',
           intervalTime: 10000,
@@ -1542,6 +1610,7 @@ Page({
     this.initTabSelect()
     if (Object.keys(stockInfo).length > 0) {
       if(this.data.stockChanged) {
+        
         this.getKData()
       this.getSubTableData()
       }
@@ -2048,7 +2117,7 @@ Page({
     let key2 = '' + fileType + itemCode + '000' + stockCode + dateStr
     let kData = app.globalData['a' + key + sortCode] || app.globalData['a' + key2 + sortCode]
     if (kData) {
-      timestamp = addZero('kData.timestamp', 10)
+      timestamp = addZero(kData.timestamp, 10)
     } else {
       for (let i = 0; i < 10; i++) {
         timestamp += '0'
@@ -2307,6 +2376,7 @@ Page({
   },
   initData(stock) {
     let stockInfo = stock
+    this.data.stockChanged = true
     if (Object.keys(stockInfo).length > 0) {
       this.initTabSelect()
       this.setData({
